@@ -13,3 +13,4 @@ test:
   - dotnet build Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
  override:
   - dotnet test Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
+
