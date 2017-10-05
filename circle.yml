@@ -9,6 +9,6 @@ dependencies:
   - dotnet restore
 test:
  pre:
-  - dotnet build ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
+  - dotnet build Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
  override:
-  - dotnet test ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
+  - dotnet test Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
