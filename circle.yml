@@ -9,8 +9,11 @@ dependencies:
   - dotnet restore
 test:
  pre:
-  - dotnet restore Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
+  - dotnet restore src/Data/ImpostoRendaLB3.Data/ImpostoRendaLB3.Data.csproj
+  - dotnet restore src/Domain/ImpostoRendaLB3.Domain/mpostoRendaLB3.Domain.csproj
+  - dotnet restore src/CrossCutting/ImpostoRendaLB3.CrossCutting.IoC/ImpostoRendaLB3.CrossCutting.IoC.csproj
+  - dotnet restore src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj
+  - dotnet build src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj
   - dotnet build Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
  override:
   - dotnet test Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
-
