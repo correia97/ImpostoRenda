@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\API\ImpostoRendaLB3.API\ImpostoRendaLB3.API.csproj" />
     <ProjectReference Include="..\..\src\Domain\ImpostoRendaLB3.Domain\ImpostoRendaLB3.Domain.csproj" />
   </ItemGroup>
 
