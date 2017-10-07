@@ -13,7 +13,7 @@ namespace ImpostoRendaLB3.Data.Repository
     public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase
     {
         protected IMongoDatabase DbContext { get; }
-        private  string collectionName { get; set; }
+        protected  string collectionName { get; set; }
 
         public RepositoryBase(IMongoDBInstance mongoDBInstance)
         {

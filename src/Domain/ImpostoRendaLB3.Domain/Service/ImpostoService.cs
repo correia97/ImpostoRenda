@@ -34,18 +34,13 @@ namespace ImpostoRendaLB3.Domain.Service
 
         public async Task<DescontoResult> CalcularDesconto(decimal salario)
         {
-            var incidencia = await RetornaIncidenciaMensalPorSalario(salario);
+            var incidencia = await _incidenciaMensalRepository.RetornaIncidenciaMensalPorSalario(salario);
             if (incidencia == null || incidencia.Aliquota == 0)
                 return new DescontoResult(0, salario, 0); 
-            var calc = Math.Round(((salario * incidencia.Aliquota) / 100) - incidencia.ParcelaDeduzir, 2);
+           var desconto = incidencia.CalcularDesconto(salario);
 
-            return new DescontoResult(incidencia.Aliquota, salario, calc);
+            return new DescontoResult(incidencia.Aliquota, salario, desconto);
         }
-        protected async Task<IncidenciaMensal> RetornaIncidenciaMensalPorSalario(decimal salario)
-        {
-            Expression<Func<IncidenciaMensal, bool>> predicate = (x) => salario >= x.ValorInicial && salario <= x.ValorFinal;
-            var result = await _incidenciaMensalRepository.Get(predicate);
-            return result;
-        }
+   
     }
 }

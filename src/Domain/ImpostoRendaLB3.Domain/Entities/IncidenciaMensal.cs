@@ -21,5 +21,10 @@ namespace ImpostoRendaLB3.Domain.Entities
         public decimal ValorFinal { get; private set; }
         public decimal Aliquota { get; private set; }
         public decimal ParcelaDeduzir { get; private set; }
+
+        public decimal CalcularDesconto(decimal salario)
+        {
+ return Math.Round(((salario * Aliquota) / 100) - ParcelaDeduzir, 2);
+        }
     }
 }
