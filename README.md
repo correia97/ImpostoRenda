@@ -9,7 +9,7 @@ API em .Net Core para um simples consulta do valor de desconto do IR mensal sobr
   - MongoDB
 
 Pré Requisitos para executar o projeto:
-  - Uma base de dados MongoDB (o site [mLab](https://mlab.com/) oferece ma base online free)
+  - Uma base de dados MongoDB (o site [mLab](https://mlab.com/) oferece uma base online free)
   - O Microsoft framework core 2.0
 
 Executando o projeto
