@@ -1,4 +1,5 @@
 ﻿using ImpostoRendaLB3.Domain.Entities;
+using ImpostoRendaLB3.Domain.Interfaces.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ImpostoRendaLB3.Domain.Interfaces.Repository
 {
     public interface IIncidenciaMensalRepository : IRepositoryBase<IncidenciaMensal>
     {
-        Task<IncidenciaMensal>  RetornaIncidenciaMensalPorSalario(decimal salario);
+        Task<IIncidenciaMensal>  RetornaIncidenciaMensalPorSalario(decimal salario);
     }
     
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using ImpostoRendaLB3.Domain.Interfaces.Entities;
 
 namespace ImpostoRendaLB3.Data.Repository
 {
@@ -17,14 +18,16 @@ namespace ImpostoRendaLB3.Data.Repository
 
         }
 
-      public async Task<IncidenciaMensal>  RetornaIncidenciaMensalPorSalario(decimal salario)
-      {
-       Expression<Func<IncidenciaMensal, bool>> predicate = (x) => salario >= x.ValorInicial && salario <= x.ValorFinal;
-                var filter = Builders<IncidenciaMensal>.Filter.Where(predicate);
-            var result = DbContext.GetCollection<IncidenciaMensal>(collectionName).Find(filter);
-            return await result.FirstOrDefaultAsync();
-           
-      }
+        public async Task<IIncidenciaMensal> RetornaIncidenciaMensalPorSalario(decimal salario)
+        {
+            Expression<Func<IncidenciaMensal, bool>> predicate = (x) => salario >= x.ValorInicial && salario <= x.ValorFinal;
+            var filter = Builders<IncidenciaMensal>.Filter.Where(predicate);
+            var incidencia = await DbContext.GetCollection<IncidenciaMensal>(collectionName).Find(filter).FirstOrDefaultAsync();
+            if (incidencia != null)
+                return incidencia;
+
+            return new IncidenciaMensalNull();
+        }
 
     }
 }
