@@ -2,10 +2,6 @@
 using ImpostoRendaLB3.Domain.Interfaces.Repository;
 using ImpostoRendaLB3.Domain.Interfaces.Service;
 using ImpostoRendaLB3.Domain.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ImpostoRendaLB3.Domain.Service
@@ -16,7 +12,7 @@ namespace ImpostoRendaLB3.Domain.Service
         public ImpostoService(IIncidenciaMensalRepository incidenciaMensalRepository)
         {
             _incidenciaMensalRepository = incidenciaMensalRepository;
-            IniciarColecao();
+            Task.WaitAll(IniciarColecao());
         }
 
         private async Task IniciarColecao()

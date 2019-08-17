@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ImpostoRendaLB3.CrossCutting.IoC;
 using Swashbuckle.AspNetCore.Swagger;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace ImpostoRendaLB3.API
 {
@@ -26,7 +26,7 @@ namespace ImpostoRendaLB3.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerGen(s =>
             {
@@ -48,12 +48,19 @@ namespace ImpostoRendaLB3.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
             app.UseCors(c =>
             {
                 c.AllowAnyHeader();
                 c.AllowAnyMethod();
                 c.AllowAnyOrigin();
             });
+
+            app.UseHttpsRedirection();
 
             app.UseMvc();
 

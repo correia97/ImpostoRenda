@@ -1,14 +1,19 @@
-machine:
- post:
-  - sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
-  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
-  - sudo apt-get update
-  - sudo apt-get install dotnet-sdk-2.0.0
-dependencies:
- override:
-  - dotnet restore
-test:
- pre:
-  - dotnet build Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
- override:
-  - dotnet test Tests/ImpostoRendaLB3.UnitTests/ImpostoRendaLB3.UnitTests.csproj
+version: 2.0
+  jobs:
+    build:
+      docker: mcr.microsoft.com/dotnet/core/sdk:2.2-alpine3.9
+    steps:
+      - checkout
+      - run:
+        name: Restore Packge
+        command:
+          dotnet restore
+      - run:
+          name: Build App
+          command:
+            dotnet build
+      - run:
+          name: Test App
+          command:
+            dotnet test --no-build
+            

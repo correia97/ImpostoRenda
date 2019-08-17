@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using ImpostoRendaLB3.Domain.Interfaces.Service;
-using Swashbuckle.AspNetCore.SwaggerGen;
+﻿using ImpostoRendaLB3.Domain.Interfaces.Service;
 using ImpostoRendaLB3.Domain.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ImpostoRendaLB3.API.Controllers
 {
     [Route("api/[controller]")]
-    public class ValorIRController : Controller
+    [ApiController]
+    public class ValorIRController : ControllerBase
     {
         private readonly IImpostoService _impostoService;
         public ValorIRController(IImpostoService impostoService)
@@ -22,8 +20,8 @@ namespace ImpostoRendaLB3.API.Controllers
 
         // POST api/values
         [HttpPost]
-        [SwaggerResponse(200,typeof(DescontoResult))]
-        [SwaggerResponse(500, typeof(string))]
+        [ProducesResponseType(typeof(DescontoResult), 200)]
+        [ProducesResponseType(typeof(string), 500)]
         public async Task<IActionResult> Post([FromBody]CalcularDescontoIR calcDesconto)
         {
             try
@@ -34,7 +32,7 @@ namespace ImpostoRendaLB3.API.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-                
+
             }
         }
     }
