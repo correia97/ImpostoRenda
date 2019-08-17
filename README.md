@@ -2,7 +2,7 @@
 
 API em .Net Core para um simples consulta do valor de desconto do IR mensal sobre um salário.
 
-  - Utilizado .Net Core 2.0
+  - Utilizado .Net Core 2.2
   - XUnit
   - FluentAssertions
   - Moq
