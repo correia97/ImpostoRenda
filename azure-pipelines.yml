@@ -14,13 +14,14 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: 'Restore'
   inputs:
     command: 'restore'
 - task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
     command: 'build'
-    arguments: 'Build'
 - task: DotNetCoreCLI@2
+  displayName: 'Test'
   inputs:
     command: 'test'
-    testRunTitle: 'Test'
