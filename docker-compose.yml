@@ -1,24 +1,21 @@
 version: '3'
 services:
+  # Api .net Core
   api:
-    build: 
-      context: .
-      dockerfile: Dockerfile-API
+    build: src/API/
     depends_on:
       - mongo
     ports:
       - 3001:80
+  # MVC .Net Core
   web:
-    build: 
-      context: .
-      dockerfile: Dockerfile-WEB
+    build: src/WEB/
     depends_on:
       - api
     ports:
-      - 3002:80     
+      - 3002:80 
+  #  Imagem Oficial do mongo 
   mongo:
     image: mongo:4.1.13
     ports:
        - 27017:27017 
-
-  
