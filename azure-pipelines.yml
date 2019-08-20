@@ -34,7 +34,7 @@ steps:
   displayName: 'Cobertura'
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'coverage.json'
+    summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/coverage.json'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
