@@ -17,5 +17,13 @@ jobs:
          name: Run Test
          command:
            dotnet test --no-build
+     - run:
+         name: Docker Compose
+         command:
+           docker-compose build
+      - run:
+         name: Docker images
+         command:
+           docker images           
 
             
