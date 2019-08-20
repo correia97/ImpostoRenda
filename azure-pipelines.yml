@@ -17,16 +17,34 @@ steps:
   displayName: 'Restore'
   inputs:
     command: 'restore'
+
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
     command: 'build'
+
 - task: DotNetCoreCLI@2
   displayName: 'Test'
   inputs:
     command: 'test'
+    arguments: '--no-build /p:CollectCoverage=true'
+    testRunTitle: 'Tests'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Cobertura'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: 'coverage.json'
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
   inputs:
     command: 'publish'
     publishWebProjects: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacst'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
