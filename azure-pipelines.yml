@@ -27,7 +27,7 @@ steps:
   displayName: 'Test'
   inputs:
     command: 'test'
-    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura,opencover  '
+    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
     testRunTitle: 'Tests'
 
 - task: PublishCodeCoverageResults@1
