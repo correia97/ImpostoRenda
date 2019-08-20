@@ -16,4 +16,4 @@ jobs:
      - run:
          name: Run Test
          command:
-           dotnet test --no-build /p:CollectCoverage=true
+           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=cobertura,opencover
