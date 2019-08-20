@@ -27,14 +27,14 @@ steps:
   displayName: 'Test'
   inputs:
     command: 'test'
-    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=\"cobertura,opencover\"'
+    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat="cobertura,opencover\"  '
     testRunTitle: 'Tests'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Cobertura'
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/coverage.json'
+    summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/coverage.cobertura.xml'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
