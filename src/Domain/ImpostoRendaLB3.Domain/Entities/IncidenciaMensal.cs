@@ -18,16 +18,18 @@ namespace ImpostoRendaLB3.Domain.Entities
         protected IncidenciaMensal()
         {
         }
+        
+        public decimal ValorInicial { get => _ValorInicial; set => _ValorInicial = value; }
+        public decimal ValorFinal { get => _ValorFinal; set => _ValorFinal =value; }
+        public decimal Aliquota { get => _Aliquota; set => _Aliquota = value; }
+        public decimal ParcelaDeduzir { get => _ParcelaDeduzir; set => _ParcelaDeduzir = value; }
 
-        public decimal ValorInicial { get => _ValorInicial; set { _ValorInicial = value; } }
-        public decimal ValorFinal { get => _ValorFinal; set { _ValorFinal = value; } }
-        public decimal Aliquota { get => _Aliquota; set { _Aliquota = value; } }
-        public decimal ParcelaDeduzir { get => _ParcelaDeduzir; set { _ParcelaDeduzir = value; } }
+
 
         private decimal _ValorInicial { get;  set; }
         private decimal _ValorFinal { get;  set; }
         private decimal _Aliquota { get;  set; }
-        private decimal _ParcelaDeduzir { get; set; }
+        private decimal _ParcelaDeduzir { get;  set; }
 
         public decimal CalcularDesconto(decimal salario)
         {

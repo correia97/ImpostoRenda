@@ -1,16 +1,11 @@
 ﻿using FluentAssertions;
-using ImpostoRendaLB3.Data.Repository;
 using ImpostoRendaLB3.Domain.Entities;
 using ImpostoRendaLB3.Domain.Interfaces.Repository;
 using ImpostoRendaLB3.Domain.Interfaces.Service;
 using ImpostoRendaLB3.Domain.Service;
 using Moq;
 using Moq.AutoMock;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using Xunit;
 
 namespace ImpostoRendaLB3.UnitTests.Domain.Service
@@ -37,6 +32,7 @@ namespace ImpostoRendaLB3.UnitTests.Domain.Service
         [InlineData(3751.06, 207.86, 22.5, 636.13)]
         [InlineData(4664.69, 413.43, 27.5, 869.36)]
         [InlineData(10000, 1880.64, 27.5, 869.36)]
+        [InlineData(12000, 2430.64, 27.5, 869.36)]
         public async void CalcularDescontoSucesso(decimal salario, decimal valorEsperado, decimal aliquota, decimal parcelaDeduzir)
         {
             if (salario > 0)

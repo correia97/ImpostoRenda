@@ -67,7 +67,7 @@ namespace ImpostoRendaLB3.API
             app.UseSwagger();
             app.UseSwaggerUI(s =>
             {
-                s.SwaggerEndpoint("/swagger/v1/swagger.json", "Imposto de Renda  v1.0");
+                s.SwaggerEndpoint("/swagger/v1/swagger.json", $"Imposto de Renda  v1.0 - {env.EnvironmentName}");
             });
         }
         private static void RegisterServices(IServiceCollection services)

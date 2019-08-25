@@ -19,3 +19,8 @@ services:
     image: mongo:4.1.13
     ports:
        - 27017:27017 
+    volumes:
+       - vMongo:/data/db
+# Volume de dados fora do container       
+volumes:
+  vMongo:
