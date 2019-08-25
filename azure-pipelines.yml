@@ -18,6 +18,15 @@ steps:
   inputs:
     command: 'restore'
 
+- task: SonarCloudPrepare@1
+  displayName: 'Configure Sonar'
+  inputs:
+    SonarCloud: 'Sonar'
+    organization: 'correia97'
+    scannerMode: 'MSBuild'
+    projectKey: 'correia97_ImpostoRendaLB3'
+    projectName: 'ImpostoRendaLB3'
+- task: SonarCloudAnalyze@1
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
@@ -35,6 +44,10 @@ steps:
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/coverage.cobertura.xml'
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+- task: SonarCloudQualityGateCheck@1    
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
@@ -48,3 +61,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
