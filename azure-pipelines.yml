@@ -26,8 +26,10 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'correia97_ImpostoRendaLB3'
     projectName: 'ImpostoRendaLB3'
-    cs.opencover.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
-    cs.xunit.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/'
+    extraProperties: |
+          sonar.exclusions=**/*.js
+          sonar.cs.opencover.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
+          sonar.cs.xunit.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build'
