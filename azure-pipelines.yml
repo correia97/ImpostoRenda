@@ -26,7 +26,8 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'correia97_ImpostoRendaLB3'
     projectName: 'ImpostoRendaLB3'
-    cs.vscoveragexml.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/coverage.cobertura.xml'
+    cs.opencover.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
+    cs.xunit.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build'
@@ -37,7 +38,7 @@ steps:
   displayName: 'Test'
   inputs:
     command: 'test'
-    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
     testRunTitle: 'Tests'
 
 - task: PublishCodeCoverageResults@1
