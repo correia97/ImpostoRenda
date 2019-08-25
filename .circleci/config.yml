@@ -9,10 +9,14 @@ jobs:
          name: Install Sonar
          command:
            dotnet tool install --global dotnet-sonarscanner --version 4.6.2
-      - run:
+     - run:
          name: Start Sonar
          command:
-           dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /d:sonar.organization="correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="b957fd86f5bbd1346a2828f4360a77f68e63f8e3" /d:sonar.cs.opencover.reportsPaths="Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml"         
+           dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
+                                     -/d:sonar.organization="correia97" \
+                                     -/d:sonar.host.url="https://sonarcloud.io" \
+                                     -/d:sonar.login="b957fd86f5bbd1346a2828f4360a77f68e63f8e3" \
+                                     -/d:sonar.cs.opencover.reportsPaths="Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml"         
      - run:
          name: Restore packages
          command:
