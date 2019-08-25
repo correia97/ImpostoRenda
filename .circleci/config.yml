@@ -12,7 +12,7 @@ jobs:
      - run:
          name: Start Sonar
          command:
-           dotnet-sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
+           dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
                                      -/d:sonar.organization="correia97" \
                                      -/d:sonar.host.url="https://sonarcloud.io" \
                                      -/d:sonar.login="b957fd86f5bbd1346a2828f4360a77f68e63f8e3" \
@@ -32,7 +32,7 @@ jobs:
      - run:
          name: Run Test
          command:
-           dotnet-sonarscanner end /d:sonar.login="b957fd86f5bbd1346a2828f4360a77f68e63f8e3"           
+           dotnet sonarscanner end /d:sonar.login="b957fd86f5bbd1346a2828f4360a77f68e63f8e3"           
 workflows:
   version: 2
   build_and_test:
