@@ -45,7 +45,7 @@ steps:
   displayName: 'Cobertura'
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/coverage.cobertura.xml'
+    summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/opencover.cobertura.xml'
 
 - task: SonarCloudAnalyze@1
   displayName: 'Sonar Analyze'
