@@ -26,6 +26,8 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'correia97_ImpostoRendaLB3'
     projectName: 'ImpostoRendaLB3'
+    cs.vscoveragexml.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/coverage.cobertura.xml'
+
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
@@ -43,11 +45,15 @@ steps:
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: 'Tests/ImpostoRendaLB3.UnitTests/coverage.cobertura.xml'
+
 - task: SonarCloudAnalyze@1
+  displayName: 'Sonar Analyze'
 
 - task: SonarCloudPublish@1
+  displayName: 'Sonar Publish'
   inputs:
     pollingTimeoutSec: '300'
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
   inputs:
