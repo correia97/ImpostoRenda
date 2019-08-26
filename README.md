@@ -11,14 +11,14 @@ Principais itens | versão
   MongoDB | 4.1.13
   Docker | 2.1.0.1
 
-###Pré Requisitos para executar o projeto:
+### Pré Requisitos para executar o projeto:
   - .Net Core 2.2
   - MongoDb
   - Docker 
 
-###Executando o projeto
+### Executando o projeto
 
-####Via Linha de Comando
+#### Via Linha de Comando
 Estou utilizando o MongoDb em um container Docker utilizando os comandos abaixo
 Criação do volume que será utilizado para armazenar os dados do Docker
 <pre>
@@ -79,24 +79,22 @@ Abrir uma nova janela do CMD ou powershell e executar o projeto MVC
 dotnet run -p src/WEB/ImpostoRendaLB3.WEB/ImpostoRendaLB3.WEB.csproj
 </pre>
 
-####Via Docker
+#### Via Docker
 Na pasta raiz do Projeto executar os comandos abaixo para fazer o build do projeto, executar os testes e gerar os binarios em modo release
-<pre>dotnet restore
-
+<pre>
+dotnet restore
 dotnet build
-
 dotnet test
-
 dotnet publish -o out -c Release
 </pre>
 Criar as imagens Docker com o projeto e executar os container 
-<pre>docker-compose build
-
+<pre>
+docker-compose build
 docker-compose up
 </pre>
 A API estara sendo executada na porta 3001 e o projeto MVC na porta 3002
 
-####Via Visual Studio
+#### Via Visual Studio
 Conforme mencionado na parte da execução via linha de comando o projeto depende de uma banco MongoDb que está sendo utilizado no Container Docker seguir os passos descritos para criação do container ou alterar a configuração para um banco existente.
 
 - Abrir a solução ImpostoRendaLB3.sln
@@ -110,17 +108,17 @@ Conforme mencionado na parte da execução via linha de comando o projeto depend
 
 
 
-####Pipeline no Azure DevOps
+#### Pipeline no Azure DevOps
 
 <pre>azure-pipelines.yml</pre>
 
-####Pipeline no CIRCLECI
+#### Pipeline no CIRCLECI
 <pre>
 .circleci/config.yml
 </pre>
 
 
-###Referências para configuração do Docker e das pipelines
+### Referências para configuração do Docker e das pipelines
 
 [Renato Groffe](https://github.com/renatogroffe)
 
