@@ -29,7 +29,6 @@ steps:
     extraProperties: |
           sonar.exclusions=**/*.js
           sonar.cs.opencover.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
-          sonar.cs.xunit.reportsPaths: 'Tests/ImpostoRendaLB3.UnitTests/'
 
 - task: DotNetCoreCLI@2
   displayName: 'Build'
