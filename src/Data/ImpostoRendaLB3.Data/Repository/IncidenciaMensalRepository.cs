@@ -19,7 +19,7 @@ namespace ImpostoRendaLB3.Data.Repository
 
         public async Task<IIncidenciaMensal> RetornaIncidenciaMensalPorSalario(decimal salario)
         {
-            Expression<Func<IncidenciaMensal, bool>> predicate = (x) => salario >= x.ValorInicial & salario <= x.ValorFinal;
+            Expression<Func<IncidenciaMensal, bool>> predicate = (x) => salario >= x.ValorInicial && salario <= x.ValorFinal;
             var filter = Builders<IncidenciaMensal>.Filter.Where(predicate);
             var result = await DbContext.GetCollection<IncidenciaMensal>(collectionName).Find(filter).ToListAsync();
             var incidencia = result.FirstOrDefault();

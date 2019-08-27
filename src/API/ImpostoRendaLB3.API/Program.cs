@@ -5,6 +5,10 @@ namespace ImpostoRendaLB3.API
 {
     public class Program
     {
+        protected Program()
+        {
+
+        }
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();

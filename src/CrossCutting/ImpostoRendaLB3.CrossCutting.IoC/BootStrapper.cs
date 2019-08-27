@@ -10,7 +10,7 @@ using System.Text;
 
 namespace ImpostoRendaLB3.CrossCutting.IoC
 {
-    public class BootStrapper
+    public static class BootStrapper
     {
         public static void RegisterServices(IServiceCollection services)
         {

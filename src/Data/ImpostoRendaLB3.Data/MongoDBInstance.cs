@@ -5,7 +5,6 @@ namespace ImpostoRendaLB3.Data
 {
     public sealed class MongoDBInstance : IMongoDBInstance
     {
-        private string connectionString;
         public IMongoDatabase db { get; private set; }
 
         private string Base { get; set; }
@@ -13,9 +12,8 @@ namespace ImpostoRendaLB3.Data
         public MongoDBInstance(IConfiguration configuration)
         {
             var settings = configuration.GetSection("MongoSettings");
-            connectionString = settings["connection"];
             this.Base = settings["baseName"];
-            var client = new MongoClient(connectionString);
+            var client = new MongoClient(settings["connection"]);
             db = client.GetDatabase(Base);
         }
 
