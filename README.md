@@ -128,7 +128,7 @@ Conforme mencionado na parte da execução via linha de comando o projeto depend
 #### Pipeline no Azure DevOps
 
 ```bash
-bashazure-pipelines.yml
+azure-pipelines.yml
 ```
 
 #### Pipeline no CIRCLECI
