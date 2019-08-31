@@ -60,16 +60,18 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Publish API'
   inputs:
-    command: 'publish $(Build.SourcesDirectory)/src/API/ImpostoRendaLB3.API -c $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)/api'
+    command: 'publish'
     publishWebProjects: true
+    arguments: 'ImpostoRendaLB3.API.csproj --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/api'
+    workingDirectory: '$(Build.SourcesDirectory)/src/API/ImpostoRendaLB3.API'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish WEB'
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-    workingDirectory: '$(Build.SourcesDirectory)'
+    arguments: 'ImpostoRendaLB3.Web.csproj --configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/web'
+    workingDirectory: '$(Build.SourcesDirectory)/src/WEB/ImpostoRendaLB3.WEB'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacst'
@@ -77,3 +79,4 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  condition: succeededOrFailed()
