@@ -61,15 +61,17 @@ steps:
   displayName: 'Publish API'
   inputs:
     command: 'publish'
+    projects: '**/ImpostoRendaLB3.API.csproj'   
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/api'
-    workingDirectory: '$(Build.SourcesDirectory)/src/API/ImpostoRendaLB3.API'
+    workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish WEB'
   inputs:
     command: 'publish'
+    projects: '**/ImpostoRendaLB3.WEB.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/web'
-    workingDirectory: '$(Build.SourcesDirectory)/src/WEB/ImpostoRendaLB3.WEB'
+    workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacst'
