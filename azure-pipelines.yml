@@ -58,10 +58,16 @@ steps:
     pollingTimeoutSec: '300'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Publish'
+  displayName: 'Publish API'
   inputs:
-    command: 'publish'
+    command: 'publish $(Build.SourcesDirectory)/src/API/ImpostoRendaLB3.API -c $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)/api'
     publishWebProjects: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish WEB'
+  inputs:
+    command: 'publish $(Build.SourcesDirectory)/src/WEB/ImpostoRendaLB3.WEB -c $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)/web'
+    publishWebProjects: true    
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacst'
@@ -69,4 +75,5 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  condition: succeededOrFailed()
 
