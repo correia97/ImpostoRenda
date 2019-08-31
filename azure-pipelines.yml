@@ -61,7 +61,8 @@ steps:
   displayName: 'Publish API'
   inputs:
     command: 'publish'
-    projects: '**/ImpostoRendaLB3.API.csproj'   
+    publishWebProjects: false
+    projects: '**/ImpostoRendaLB3.API.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/api'
     workingDirectory: '$(Build.SourcesDirectory)'
 
@@ -69,6 +70,7 @@ steps:
   displayName: 'Publish WEB'
   inputs:
     command: 'publish'
+    publishWebProjects: false
     projects: '**/ImpostoRendaLB3.WEB.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/web'
     workingDirectory: '$(Build.SourcesDirectory)'
