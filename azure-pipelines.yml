@@ -62,7 +62,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
-    arguments: '-c Release'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: PublishBuildArtifacts@1
