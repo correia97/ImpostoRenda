@@ -62,6 +62,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
+    arguments: '-c Release'
     workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: PublishBuildArtifacts@1
