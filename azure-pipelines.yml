@@ -66,8 +66,10 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Publish WEB'
   inputs:
-    command: 'publish $(Build.SourcesDirectory)/src/WEB/ImpostoRendaLB3.WEB -c $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)/web'
-    publishWebProjects: true    
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+    workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacst'
@@ -75,5 +77,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-  condition: succeededOrFailed()
-
