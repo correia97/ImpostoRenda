@@ -70,8 +70,8 @@ steps:
   displayName: 'Publish WEB'
   inputs:
     command: 'publish'
-    publishWebProjects: false
-    projects: '**/ImpostoRendaLB3.WEB.csproj'
+    publishWebProjects: true
+    projects: '**/ImpostoRendaLB3.Web.csproj'
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/web'
     workingDirectory: '$(Build.SourcesDirectory)'
 
