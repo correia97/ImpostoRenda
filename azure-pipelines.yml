@@ -62,6 +62,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: true
+    workingDirectory: '$(Build.SourcesDirectory)'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifacst'
@@ -69,4 +70,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
