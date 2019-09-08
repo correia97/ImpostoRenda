@@ -4,23 +4,44 @@ jobs:
    docker:
      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
    steps:
-     - checkout
+     - Restore
      - run:
          name: Restore packages
          command:
            dotnet restore
+   steps:
+     - Build
      - run:
          name: Build App
          command:
            dotnet build
+   steps:
+     - Test           
      - run:
          name: Run Test
          command:
-           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\"
+           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput='./results/'
      - store_artifacts:
-          path: Tests/ImpostoRendaLB3.UnitTests/
+          path: Tests/ImpostoRendaLB3.UnitTests/results
+     - run:
+         name: Publish Project
+         command: 
+          dotnet publish -c Release -o out
+      - run:
+          name: list
+          command: ls          
+  pubish:
+    working_directory: /app
+    docker:
+      - image: docker:18.09.9-git
+    steps:
+      - Build image
+      - run:
+          name: list
+          command: ls
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build           
+      - build 
+      - publish          
