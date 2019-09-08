@@ -16,16 +16,16 @@ jobs:
      - run:
          name: Run Test
          command:
-           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput='./results/'
-     - store_artifacts:
-          path: Tests/ImpostoRendaLB3.UnitTests/results
+           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput="./results/"
      - run:
          name: Publish Project
          command: 
           dotnet publish -c Release -o out
       - run:
           name: list
-          command: ls          
+          command: ls  
+     - store_artifacts:
+          path: Tests/ImpostoRendaLB3.UnitTests/results                  
 workflows:
   version: 2
   build_and_test:
