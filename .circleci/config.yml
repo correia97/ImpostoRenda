@@ -9,14 +9,10 @@ jobs:
          name: Restore packages
          command:
            dotnet restore
-   steps:
-     - Build
      - run:
          name: Build App
          command:
-           dotnet build
-   steps:
-     - Test           
+           dotnet build          
      - run:
          name: Run Test
          command:
