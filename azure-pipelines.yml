@@ -43,6 +43,14 @@ steps:
     arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
     testRunTitle: 'Tests'
 
+- task: SonarCloudAnalyze@1
+  displayName: 'Analise sonar'
+  
+- task: SonarCloudPublish@1
+  displayName: 'Publicação sonar'
+  inputs:
+    pollingTimeoutSec: '300'
+
 - task: PublishCodeCoverageResults@1
   displayName: 'Cobertura'
   inputs:
