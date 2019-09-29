@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/pauloc/ImpostoRenda/_apis/build/status/Build%20Test?branchName=master)](https://dev.azure.com/pauloc/ImpostoRenda/_build/latest?definitionId=1&branchName=master)
+
 # ImpostoRenda
 
 API em .Net Core para um simples consulta do valor de desconto do IR mensal sobre um salário.
