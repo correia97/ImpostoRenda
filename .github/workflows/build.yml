@@ -17,6 +17,8 @@ jobs:
     - name: Test
       run: dotnet test
     - name: Publish
-      run: dotnet publish -c Release 
+      run: dotnet publish -c Release
+    - name: Docker
+      run: docker build -t imp:v1 . 
       
 
