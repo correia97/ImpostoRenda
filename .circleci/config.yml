@@ -23,6 +23,7 @@ jobs:
     machine:
       image: circleci/classic:201808-01 
     steps:
+      - checkout
       - run:
           name: docker build
           command: docker build -t imp:v1 .
