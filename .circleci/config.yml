@@ -21,7 +21,7 @@ jobs:
           path: Tests/ImpostoRendaLB3.UnitTests/results
  dockerbuild:
     machine:
-      image: ubuntu-1604:latest 
+      image: circleci/classic:201808-01 
     steps:
       - run:
           name: docker build
