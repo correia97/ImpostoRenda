@@ -18,7 +18,7 @@ WORKDIR /app
 COPY  . ./
 # Instala o sonnar
 #RUN dotnet tool install --global dotnet-sonarscanner --version 4.3.1
-
+ARG sonarLogin
 # Start do scanner
 RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:sonar.organization="correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin
 # Executa o restore
