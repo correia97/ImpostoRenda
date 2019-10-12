@@ -5,20 +5,21 @@ RUN apt-get update
 RUN apt-get install -y openjdk-8-jre
 RUN rm -rf /var/lib/apt/lists/*
 
-
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
-RUN dotnet tool install --global dotnet-sonarscanner
+# Instala o sonnar
+RUN dotnet tool install --global dotnet-sonarscanner --version 4.7.1
+# Instala o coverlet
 RUN dotnet tool install --global coverlet.console
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 WORKDIR /app
 # Copiar os arquivos da solution para o container
 COPY  . ./
-# Instala o sonnar
-#RUN dotnet tool install --global dotnet-sonarscanner --version 4.3.1
+
 ARG sonarLogin
+RUN echo $sonarLogin
 # Start do scanner
 RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin
 # Executa o restore
