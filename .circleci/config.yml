@@ -20,6 +20,8 @@ jobs:
      - store_artifacts:
           path: Tests/ImpostoRendaLB3.UnitTests/results
  dockerbuild:
+    machine:
+      image: ubuntu-1604:latest 
     steps:
       - run:
           name: docker build
