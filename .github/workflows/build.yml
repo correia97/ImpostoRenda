@@ -10,13 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: docker://mcr.microsoft.com/dotnet/core/sdk:2.2
     - name: Restore packge
       run: dotnet restore
     - name: Build
       run: dotnet build -c Release
     - name: Test
-      run: dotnet test --no-build
+      run: dotnet test
     - name: Publish
       run: dotnet publish -c Release 
       
