@@ -1,26 +1,17 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 as build-env
-# expor ferramenta
 
-RUN export PATH="$PATH:/root/.dotnet/tools"
+# Install Java.
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jre
+RUN rm -rf /var/lib/apt/lists/*
+
+
+# Define commonly used JAVA_HOME variable
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+
 RUN dotnet tool install --global dotnet-sonarscanner
 RUN dotnet tool install --global coverlet.console
-#RUN chmod +x /root/.dotnet/tools/.store/dotnet-sonarscanner/4.3.1/dotnet-sonarscanner/4.3.1/tools/netcoreapp2.1/any/sonar-scanner-3.2.0.1227/bin/sonar-scanner
-#RUN cat /root/.dotnet/tools/.store/dotnet-sonarscanner/4.3.1/dotnet-sonarscanner/4.3.1/tools/netcoreapp2.1/any/sonar-scanner-3.2.0.1227/bin/sonar-scanner
-
-RUN apt update 
-RUN echo "-------------------------------------------------------------"
-RUN apt list --upgradable 
-RUN echo "-------------------------------------------------------------"
-RUN apt -y install default-jre 
-RUN echo "-------------------------------------------------------------"
-
-RUN update-alternatives --config java
-RUN echo "-------------------------------------------------------------"
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-RUN echo "-------------------------------------------------------------"
-RUN echo $JAVA_HOME
-
-
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 WORKDIR /app
 # Copiar os arquivos da solution para o container
@@ -29,7 +20,7 @@ COPY  . ./
 #RUN dotnet tool install --global dotnet-sonarscanner --version 4.3.1
 
 # Start do scanner
-RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /d:sonar.organization="correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin
+RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:sonar.organization="correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin
 # Executa o restore
 RUN dotnet restore
 # Executa os teste
