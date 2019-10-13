@@ -1,16 +1,15 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 as build-env
 
-# Install Java.
 RUN apt-get update
+RUN apt-get install -y --no-install-recommends apt-utils
+# Install Java.
 RUN apt-get install -y openjdk-8-jdk
 RUN update-alternatives --config java
 RUN export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-RUN echo $JAVA_HOME
 
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH=${JAVA_HOME}/bin:$PATH 
-RUN echo $JAVA_HOME
 
 #instalar o node
 RUN apt-get install -y nodejs
@@ -25,7 +24,7 @@ COPY  . ./
 
 ARG sonarLogin
 # Start do scanner
-RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin /d:sonar.cs.opencover.reportsPaths="/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml"
+RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml"
 # Executa o restore
 RUN dotnet restore
 #Faz o build
