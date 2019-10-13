@@ -2,16 +2,21 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2 as build-env
 
 # Install Java.
 RUN apt-get update
-RUN apt-get install -y openjdk-8-jre
-RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y openjdk-8-jdk
+RUN update-alternatives --config java
+RUN export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+RUN echo $JAVA_HOME
 
 # Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH=${JAVA_HOME}/bin:$PATH 
+RUN echo $JAVA_HOME
+
+#instalar o node
+RUN apt-get install -y nodejs
 
 # Instala o sonnar
 RUN dotnet tool install --global dotnet-sonarscanner --version 4.7.1
-# Instala o coverlet
-RUN dotnet tool install --global coverlet.console
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
 WORKDIR /app
@@ -19,13 +24,14 @@ WORKDIR /app
 COPY  . ./
 
 ARG sonarLogin
-RUN echo $sonarLogin
 # Start do scanner
-RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin
+RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin /d:sonar.cs.opencover.reportsPaths="/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml"
 # Executa o restore
 RUN dotnet restore
+#Faz o build
+RUN dotnet build
 # Executa os teste
-RUN dotnet test
+RUN dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 # Realiza a Analise
 RUN dotnet sonarscanner end /d:sonar.login=$sonarLogin   
 # Publica a Aplicação
