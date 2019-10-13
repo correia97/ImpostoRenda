@@ -11,9 +11,6 @@ RUN export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV PATH=${JAVA_HOME}/bin:$PATH 
 
-#instalar o node
-RUN apt-get install -y nodejs
-
 # Instala o sonnar
 RUN dotnet tool install --global dotnet-sonarscanner --version 4.7.1
 ENV PATH="${PATH}:/root/.dotnet/tools"
@@ -24,7 +21,11 @@ COPY  . ./
 
 ARG sonarLogin
 # Start do scanner
-RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=$sonarLogin /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml"
+RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
+                              /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" \
+                              /d:sonar.login=$sonarLogin \
+                              /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" \
+                              /d:sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml
 # Executa o restore
 RUN dotnet restore
 #Faz o build

@@ -27,7 +27,7 @@ steps:
     projectKey: 'correia97_ImpostoRendaLB3'
     projectName: 'ImpostoRendaLB3'
     extraProperties: |
-          sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll
+          sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml
           sonar.branch.name=$(Build.SourceBranchName)
           sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml
 
