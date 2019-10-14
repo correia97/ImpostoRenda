@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 as build-env
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install -y apt-utils
 # Install Java.
 RUN apt-get install -y openjdk-8-jdk
 RUN update-alternatives --config java
