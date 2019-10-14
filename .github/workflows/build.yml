@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: GlobalTool Sona
+      run: dotnet tool install --global dotnet-sonarscanner --version 4.7.1
     - name: Restore packge
       run: dotnet restore
     - name: Build
-      run: dotnet build -c Release
+      run: dotnet build
     - name: Test
-      run: dotnet test
-    - name: Publish
-      run: dotnet publish -c Release
+      run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
