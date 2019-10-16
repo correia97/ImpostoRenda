@@ -140,6 +140,12 @@ azure-pipelines.yml
 .circleci/config.yml
 ```
 
+#### Pipeline no GIT Actions
+
+```bash
+.github/workflows/build.yml
+```
+
 ### Referências para configuração do Docker e das pipelines
 
 [Renato Groffe](https://github.com/renatogroffe)
