@@ -11,13 +11,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install Java
-      run: apt-get update && \
+      run: sudo apt-get update && \
             apt-get install -y \
             openjdk-8-jdk 
     - name: Update Java
-      run: update-alternatives --config java
+      run: sudo update-alternatives --config java
     - name: Config Java_home
-      run: export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+      run: sudo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
       env:
         JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
         PATH: =${JAVA_HOME}/bin:$PATH           
