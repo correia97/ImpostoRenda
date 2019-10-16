@@ -10,28 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Install Java
-      run: sudo apt-get update && apt-get install -y openjdk-8-jdk 
-    - name: Update Java
-      run: sudo update-alternatives --config java
-    - name: Config Java_home
-      run: sudo export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-      env:
-        JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
-        PATH: =${JAVA_HOME}/bin:$PATH           
-    - name: GlobalTool Sonar
-      run: dotnet tool install --global dotnet-sonarscanner --version 4.7.1
     - name: Restore packge
       run: dotnet restore
-    - name: Start Scanner
-      run: dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
-                              /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" \
-                              /d:sonar.login=${{secrets.SONAR_KEY}} \
-                              /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" \
-                              /d:sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml
     - name: Build
       run: dotnet build
     - name: Test
       run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-    - name: Sonar Analize
-      run: dotnet sonarscanner end /d:sonar.login=${{secrets.SONAR_KEY}} 
