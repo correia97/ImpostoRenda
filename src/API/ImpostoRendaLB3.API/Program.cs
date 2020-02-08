@@ -1,4 +1,7 @@
-﻿namespace ImpostoRendaLB3.API
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+
+namespace ImpostoRendaLB3.API
 {
     public class Program
     {

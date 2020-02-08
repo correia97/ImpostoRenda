@@ -1,4 +1,10 @@
 ﻿using ImpostoRendaLB3.CrossCutting.IoC;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ImpostoRendaLB3.API
 {
