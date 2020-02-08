@@ -1,8 +1,5 @@
 ﻿using ImpostoRendaLB3.Domain.Entities;
 using ImpostoRendaLB3.Domain.Interfaces.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ImpostoRendaLB3.Domain.Interfaces.Repository

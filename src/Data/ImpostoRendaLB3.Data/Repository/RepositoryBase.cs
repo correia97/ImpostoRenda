@@ -1,12 +1,10 @@
-﻿using ImpostoRendaLB3.Domain.Interfaces.Repository;
+﻿using ImpostoRendaLB3.Domain.Entities;
+using ImpostoRendaLB3.Domain.Interfaces.Repository;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq.Expressions;
-using MongoDB.Driver;
-using MongoDB.Bson;
 using System.Threading.Tasks;
-using ImpostoRendaLB3.Domain.Entities;
 
 namespace ImpostoRendaLB3.Data.Repository
 {

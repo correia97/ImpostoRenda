@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ImpostoRendaLB3.Domain.ViewModel
+﻿namespace ImpostoRendaLB3.Domain.ViewModel
 {
     public class DescontoResult
     {

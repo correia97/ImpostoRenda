@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using ImpostoRendaLB3.Web.Interfaces;
 using ImpostoRendaLB3.Web.Models;
-using ImpostoRendaLB3.Web.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace ImpostoRendaLB3.Web.Controllers
 {
