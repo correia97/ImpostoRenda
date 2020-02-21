@@ -30,7 +30,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           key: correia97_ImpostoRendaLB3
-            
+          projectKey: correia97_ImpostoRendaLB3
+          organizationKey: correia97        
     
   buildDocker:
     needs: build
