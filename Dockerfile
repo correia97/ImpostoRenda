@@ -27,7 +27,7 @@ RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
                               /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" \
                               /d:sonar.login=$sonarLogin \
                               /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" \
-                              /d:sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml
+                              /d:sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml,*-project.properties
 
 #Faz o build
 RUN dotnet build
