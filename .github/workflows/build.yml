@@ -39,4 +39,4 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@master      
       - name: Docker build
-        run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }}
+        run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
