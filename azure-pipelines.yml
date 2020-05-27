@@ -65,13 +65,13 @@ steps:
 - task: CmdLine@2
   displayName: Publish CodeCov
   inputs:
-     script: './codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
+     script: './codecov -f "$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
 
 - task: reportgenerator@4
   inputs:
     reports: 'coverage.opencover.xml'
     targetdir: 'coveragereport'
-    sourcedirs: '/app/Tests/ImpostoRendaLB3.UnitTests/'
+    sourcedirs: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
     plugins: 'xunit'
     title: 'Report'
 
