@@ -150,6 +150,9 @@ azure-pipelines.yml
 ### Referências para configuração do Docker e das pipelines
 
 [Renato Groffe](https://github.com/renatogroffe)
+
 [Luiz Carlos](https://github.com/luizcarlosfaria)
+
 [Milton Camara](https://github.com/miltoncamara)
+
 [Circleci Docs](https://circleci.com/docs/)
