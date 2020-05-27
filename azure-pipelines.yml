@@ -60,12 +60,7 @@ steps:
 - task: CmdLine@2
   displayName: Install CodeCov
   inputs:
-     script: 'dotnet tool install --global Codecov.Tool'
-
-- task: CmdLine@2
-  displayName: Export Path
-  inputs:
-   script: 'export PATH="$HOME/.dotnet/tools"'
+     script: 'dotnet tool install --tool-path ./ Codecov.Tool'
 
 - task: CmdLine@2
   displayName: Publish CodeCov

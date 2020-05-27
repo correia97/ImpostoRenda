@@ -16,24 +16,20 @@ jobs:
      - run:
          name: install Tool CodeCov
          command:
-           dotnet tool install --global Codecov.Tool
+           dotnet tool install --tool-path ./ Codecov.Tool
 
-     - run:
-         name: Export Path
-         command:
-           export PATH="$HOME/.dotnet/tools"
      - run:
          name: Run Test
          command:
-           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput=\"results\"
+           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput=\"./../../results\"
 
      - run:
          name: Publish CodeCov
          command:
-           codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codeCovToken
+           codecov -f "/app/results/coverage.opencover.xml" -t $codeCovToken
 
      - store_artifacts:
-          path: Tests/ImpostoRendaLB3.UnitTests/results
+          path: results/
  dockerbuild:
     machine:
       image: circleci/classic:201808-01 
