@@ -16,7 +16,11 @@ jobs:
       run: dotnet build
     - name: Test
       run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-  
+    - name: Install ReportGenarator tool
+      run: dotnet tool install --global  dotnet-reportgenerator-globaltool 
+    - name: Test
+      run: reportgenerator "/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" "-targetdir:/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/"  
+
   sonarCloudTrigger:
     needs: build
     name: SonarCloud Trigger

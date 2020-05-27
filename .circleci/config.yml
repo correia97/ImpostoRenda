@@ -12,7 +12,11 @@ jobs:
      - run:
          name: install Tool CodeCov
          command:
-           dotnet tool install --tool-path ./ Codecov.Tool           
+           dotnet tool install --tool-path ./ Codecov.Tool    
+     - run:
+         name: install Tool ReportGenerator
+         command:
+           dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool       
      - run:
          name: Build App
          command:
@@ -26,6 +30,11 @@ jobs:
          name: Publish CodeCov
          command:
            ./codecov -f "/app/results/coverage.opencover.xml" -t $codeCovToken
+
+     - run:
+         name: Generate Report
+         command:
+           ./reportgenerator  "/app/results/coverage.opencover.xml" "-targetdir:/app/results/"          
 
      - store_artifacts:
           path: results/
