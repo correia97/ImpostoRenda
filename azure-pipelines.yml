@@ -63,17 +63,9 @@ steps:
      script: 'dotnet tool install --tool-path ./ Codecov.Tool'
 
 - task: CmdLine@2
-  displayName: Install CodeCov
-  inputs:
-     script: '
-     ls -l && \
-     cd codecov && \
-     ls -l'
-
-- task: CmdLine@2
   displayName: Publish CodeCov
   inputs:
-     script: 'codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
+     script: './codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish API'
