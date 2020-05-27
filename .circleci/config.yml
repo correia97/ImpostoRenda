@@ -17,13 +17,18 @@ jobs:
          name: install Tool CodeCov
          command:
            dotnet tool install --global Codecov.Tool
+
+     - run:
+         name: Export Path
+         command:
+           export PATH="$PATH:/root/.dotnet/tools"
      - run:
          name: Run Test
          command:
            dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput=\"results\"
 
      - run:
-         name: install Tool CodeCov
+         name: Publish CodeCov
          command:
            codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codeCovToken
 

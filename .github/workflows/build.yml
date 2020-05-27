@@ -42,6 +42,8 @@ jobs:
         uses: actions/checkout@master
       - name: Install CodeCov tool   
         run: dotnet tool install --global Codecov.Tool  
+      - name: Export Tools
+        run: export PATH="$PATH:/root/.dotnet/tools"
       - name: Upload data
         run: codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
       
@@ -54,4 +56,4 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@master      
       - name: Docker build
-        run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken={{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
+        run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken=${{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
