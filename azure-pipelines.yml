@@ -63,6 +63,11 @@ steps:
      script: 'dotnet tool install --global Codecov.Tool'
 
 - task: CmdLine@2
+  displayName: Export Path
+  inputs:
+   script: 'export PATH="$PATH:/root/.dotnet/tools"'
+
+- task: CmdLine@2
   displayName: Publish CodeCov
   inputs:
      script: 'codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
