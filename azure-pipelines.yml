@@ -67,6 +67,14 @@ steps:
   inputs:
      script: './codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
 
+- task: reportgenerator@4
+  inputs:
+    reports: 'coverage.opencover.xml'
+    targetdir: 'coveragereport'
+    sourcedirs: '/app/Tests/ImpostoRendaLB3.UnitTests/'
+    plugins: 'xunit'
+    title: 'Report'
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish API'
   inputs:
