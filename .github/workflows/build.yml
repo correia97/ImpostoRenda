@@ -42,8 +42,6 @@ jobs:
         uses: actions/checkout@master
       - name: Install CodeCov tool   
         run: dotnet tool install --global Codecov.Tool  
-      - name: Export Tools
-        run: export PATH="$PATH:/root/.dotnet/tools"
       - name: Upload data
         run: codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
       

@@ -65,7 +65,7 @@ steps:
 - task: CmdLine@2
   displayName: Export Path
   inputs:
-   script: 'export PATH="$PATH:/root/.dotnet/tools"'
+   script: 'export PATH="$HOME/.dotnet/tools"'
 
 - task: CmdLine@2
   displayName: Publish CodeCov

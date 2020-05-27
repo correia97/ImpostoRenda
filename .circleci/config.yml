@@ -21,7 +21,7 @@ jobs:
      - run:
          name: Export Path
          command:
-           export PATH="$PATH:/root/.dotnet/tools"
+           export PATH="$HOME/.dotnet/tools"
      - run:
          name: Run Test
          command:
