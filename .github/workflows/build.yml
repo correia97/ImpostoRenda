@@ -38,7 +38,9 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@master
       - name: Install CodeCov tool   
-        run: dotnet tool install  --tool-path ./ Codecov.Tool  
+        run: dotnet tool install  --tool-path ./ Codecov.Tool 
+      - name: List Files   
+        run: ls -l          
       - name: Upload data
         run: codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
       
