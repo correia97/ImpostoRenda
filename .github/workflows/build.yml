@@ -32,7 +32,20 @@ jobs:
           key: correia97_ImpostoRendaLB3
           projectKey: correia97_ImpostoRendaLB3
           organizationKey: correia97        
-    
+   
+  codeCovTrigger:
+    needs: build
+    name: CodeCov Trigger
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@master
+      - name: Install CodeCov tool   
+        run: dotnet tool install --global Codecov.Tool  
+      - name: Upload data
+        run: codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
+      
+
   buildDocker:
     needs: build
     name: Docker
@@ -41,4 +54,4 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@master      
       - name: Docker build
-        run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
+        run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken={{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .

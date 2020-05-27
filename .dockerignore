@@ -1,3 +1,11 @@
 sonar-project.properties
-*.yml
+.circleci
+.vs
+.vscode
+bin/
+obj/
+out/
+Dockerfile
+*compose.yml
+*pipelines.yml
 *.md

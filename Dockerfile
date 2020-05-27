@@ -13,13 +13,20 @@ ENV PATH=${JAVA_HOME}/bin:$PATH
 
 # Instala o sonnar
 RUN dotnet tool install --global dotnet-sonarscanner --version 4.7.1
+# instala ferramenta do Codecov
+RUN dotnet tool install --global Codecov.Tool
+# Variavel de path das ferramentas
 ENV PATH="${PATH}:/root/.dotnet/tools"
 # Define a pasta onde vai estar os arquivos
 WORKDIR /app
 # Copiar os arquivos da solution para o container
 COPY  . ./
+# Arquivo do CodeCov
+RUN cat codecov.yml | curl --data-binary @- https://codecov.io/validate
 # Argumento informado durante o build
 ARG sonarLogin
+# Argumento informado durante o build
+ARG codecovToken
 # Executa o restore
 RUN dotnet restore
 # Start do scanner
@@ -35,6 +42,8 @@ RUN dotnet build
 RUN dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --no-build
 # Realiza a Analise
 RUN dotnet sonarscanner end /d:sonar.login=$sonarLogin   
+# Cobertura no CodCov
+RUN codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codecovToken
 # Publica a Aplicação
 RUN dotnet publish -c Release -o out
 # Build da imagem
@@ -43,5 +52,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6-alpine3.9 as API
 WORKDIR /app
 # Copia os arquivos publicados do container de build para o container final
 COPY --from=build-env /app/src/API/ImpostoRendaLB3.API/out .
+# Variavél de ambiente que define onde a aplicação está rodando
+ENV ASPNETCORE_ENVIRONMENT=docker
 # Define qual o executavel do container
-ENTRYPOINT [ "dotnet","ImpostoRendaLB3.API.dll","--environment=docker"  ]
+ENTRYPOINT [ "dotnet","ImpostoRendaLB3.API.dll"  ]

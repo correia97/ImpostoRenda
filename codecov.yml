@@ -1,0 +1,19 @@
+# https://github.com/codecov/support/wiki/Codecov-Yaml
+
+coverage:
+  status:
+    project:
+      default: false
+    patch:
+      default: false
+
+comment:
+  layout: "diff"
+
+flags:
+  production:
+    paths:
+      - src/API/ImpostoRendaLB3.API/
+  test:
+    paths:
+      - Tests/ImpostoRendaLB3.UnitTests/
