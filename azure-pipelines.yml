@@ -57,15 +57,16 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
 
-
-- task: DotNetCoreCLI@2
-  displayName: 'Intall Tool'
-  inputs:
-    command: 'tool'
-    arguments: 'install --global Codecov.Tool'
 - task: CmdLine@2
+  displayName: Install CodeCov
+  inputs:
+     script: 'dotnet tool install --global Codecov.Tool'
+
+- task: CmdLine@2
+  displayName: Publish CodeCov
   inputs:
      script: 'codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
+
 - task: DotNetCoreCLI@2
   displayName: 'Publish API'
   inputs:
