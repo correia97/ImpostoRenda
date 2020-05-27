@@ -20,6 +20,8 @@ jobs:
      - run:
          name: List Files
          command:
+           ls -l && \
+           cd codecov && \
            ls -l
      - run:
          name: Run Test

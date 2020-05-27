@@ -65,7 +65,10 @@ steps:
 - task: CmdLine@2
   displayName: Install CodeCov
   inputs:
-     script: 'ls -l'
+     script: '
+     ls -l && \
+     cd codecov && \
+     ls -l'
 
 - task: CmdLine@2
   displayName: Publish CodeCov

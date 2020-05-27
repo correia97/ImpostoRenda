@@ -40,7 +40,7 @@ jobs:
       - name: Install CodeCov tool   
         run: dotnet tool install --global Codecov.Tool  
       - name: Upload data
-        run: codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
+        run: codecov -f "/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
       
 
   buildDocker:
