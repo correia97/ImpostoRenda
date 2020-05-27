@@ -70,7 +70,7 @@ steps:
 - task: reportgenerator@4
   displayName: Report
   inputs:
-    reports: 'coverage.opencover.xml'
+    reports: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
     targetdir: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
     sourcedirs: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
     plugins: 'xunit'
