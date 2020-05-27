@@ -28,7 +28,7 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}       
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
    
   codeCovTrigger:
     needs: build
@@ -38,9 +38,7 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@master
       - name: Install CodeCov tool   
-        run: dotnet tool install  --tool-path ./ Codecov.Tool 
-      - name: List Files   
-        run: ls -l          
+        run: dotnet tool install --global Codecov.Tool  
       - name: Upload data
         run: codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
       
