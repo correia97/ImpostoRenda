@@ -14,9 +14,19 @@ jobs:
          command:
            dotnet build
      - run:
+         name: install Tool CodeCov
+         command:
+           dotnet tool install --global Codecov.Tool
+     - run:
          name: Run Test
          command:
            dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat=\"cobertura,opencover\" /p:CoverletOutput=\"results\"
+
+     - run:
+         name: install Tool CodeCov
+         command:
+           codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codeCovToken
+
      - store_artifacts:
           path: Tests/ImpostoRendaLB3.UnitTests/results
  dockerbuild:
@@ -26,7 +36,7 @@ jobs:
       - checkout
       - run:
           name: docker build
-          command: docker build --build-arg sonarLogin=$sonarLogin -t imp:v1 .
+          command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
 workflows:
   version: 2
   build_and_test:
