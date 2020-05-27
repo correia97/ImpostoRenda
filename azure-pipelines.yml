@@ -73,8 +73,6 @@ steps:
     reports: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
     targetdir: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
     sourcedirs: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
-    plugins: 'xunit'
-    title: 'Report'
 
 - task: PublishTestResults@2
   displayName: Publish Test Result
