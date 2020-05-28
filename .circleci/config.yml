@@ -34,7 +34,7 @@ jobs:
      - run:
          name: Generate Report
          command:
-           ./reportgenerator "-reports:coverage.opencover.xml" \
+           ./reportgenerator "-reports:/app/results/coverage.opencover.xml" \
                             "-targetdir:/app/results/" \
                             "-reporttypes:Html" \
                             "-sourcedirs:/app/results/"        
