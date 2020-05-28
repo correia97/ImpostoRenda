@@ -29,15 +29,15 @@ jobs:
      - run:
          name: Publish CodeCov
          command:
-           ./codecov -f "/app/results/coverage.opencover.xml" -t $codeCovToken
+           ./codecov -f "/root/project/results/coverage.opencover.xml" -t $codeCovToken
 
      - run:
          name: Generate Report
          command:
-           ./reportgenerator "-reports:/app/results/coverage.opencover.xml" \
-                            "-targetdir:/app/results/" \
+           ./reportgenerator "-reports:/root/project/results/coverage.opencover.xml" \
+                            "-targetdir:/root/project/results/" \
                             "-reporttypes:Html" \
-                            "-sourcedirs:/app/results/"        
+                            "-sourcedirs:/root/project/results/"        
 
      - store_artifacts:
           path: results/
