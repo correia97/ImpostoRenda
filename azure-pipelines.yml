@@ -40,14 +40,14 @@ steps:
   displayName: 'Test'
   inputs:
     command: 'test'
-    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+    arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$(Build.SourcesDirectory)/results/\'
     testRunTitle: 'Tests'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Cobertura'
   inputs:
     codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
+    summaryFileLocation: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
 
 - task: SonarCloudAnalyze@1
   displayName: 'Sonar Analyze'
@@ -65,21 +65,21 @@ steps:
 - task: CmdLine@2
   displayName: Publish CodeCov
   inputs:
-     script: './codecov -f "$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $(codecovToken)'
+     script: './codecov -f "$(Build.SourcesDirectory)/results/coverage.opencover.xml" -t $(codecovToken)'
 
 - task: reportgenerator@4
   displayName: Report
   inputs:
-    reports: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml'
-    targetdir: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
-    sourcedirs: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
+    reports: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
+    targetdir: '$(Build.SourcesDirectory)/results/'
+    sourcedirs: '$(Build.SourcesDirectory)/results/'
 
 - task: PublishTestResults@2
   displayName: Publish Test Result
   inputs:
     testResultsFormat: 'XUnit'
     testResultsFiles: '**/*.xml'
-    searchFolder: '$(Build.SourcesDirectory)/Tests/ImpostoRendaLB3.UnitTests/'
+    searchFolder: '$(Build.SourcesDirectory)/results/'
 
 
 - task: DotNetCoreCLI@2
