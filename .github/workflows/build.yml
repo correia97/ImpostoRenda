@@ -67,6 +67,9 @@ jobs:
         uses: actions/checkout@master  
       - name: Docker Compose
         run: docker-compose up -d
+      - name: Install node
+        run: curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+             apt-get install -y nodejs  
       - name: Install newman
         run: npm install -g newman
       - name: Run Test

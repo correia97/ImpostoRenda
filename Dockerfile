@@ -28,8 +28,6 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 WORKDIR /app
 # Copiar os arquivos da solution para o container
 COPY  . ./
-# Arquivo do CodeCov
-RUN cat codecov.yml | curl --data-binary @- https://codecov.io/validate
 # Argumento informado durante o build
 ARG sonarLogin
 # Argumento informado durante o build
