@@ -60,7 +60,7 @@ jobs:
         run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken=${{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
 
   IntergratedTestsWithDocker:
-    needs: buildDocker
+    needs: build
     runs-on: [ubuntu-latest]
     steps:
       - name: Clone Repository
@@ -69,6 +69,8 @@ jobs:
         run: docker-compose up -d
       - name: Install node
         run: curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+             apt-get update && \
+             apt-get upgrade && \
              apt-get install -y nodejs  
       - name: Install newman
         run: npm install -g newman
