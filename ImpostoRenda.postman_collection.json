@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "74959608-c259-471d-aa77-471ab7494f64",
+		"name": "ImpostoRenda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Valor Desconto IR",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5ca4c40b-a52f-464f-9b4e-cec1abb3a066",
+						"exec": [
+							"var data = [{\"salario\":600,\"aliquota\":0,\"message\":\"Não existe Aliquota para o salário informado\"},{\"salario\":1904,\"aliquota\":7.5,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":2827,\"aliquota\":15,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":3752,\"aliquota\":22.5,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":4665,\"aliquota\":27.5,\"message\":\"Valor Calculado com Sucesso!\"}];\r",
+							"\r",
+							"\r",
+							"var index = Math.floor((Math.random() * 4));\r",
+							"index = index < 0 ? 0 : index\r",
+							"console.log(index);\r",
+							"pm.globals.set(\"index\",index);\r",
+							"pm.globals.set(\"salario\", data[index].salario);\r",
+							"pm.globals.set(\"aliquota\", data[index].aliquota);\r",
+							"pm.globals.set(\"message\", data[index].message);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "43b3ebdb-d52e-4f94-bcbc-77e4b8e5dfc6",
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.test(\"Status\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+							"});\r",
+							"var aliquota = \r",
+							"pm.globals.get(\"aliquota\");\r",
+							"pm.test(\"Aliquota\", function () {\r",
+							"\r",
+							"    pm.expect(jsonData.aliquota).to.eql(aliquota);\r",
+							"});\r",
+							"var message = \r",
+							"pm.globals.get(\"message\");\r",
+							"pm.test(\"message\", function () {\r",
+							"\r",
+							"    pm.expect(jsonData.message).to.eql(message);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"salario\": {{salario}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/ValorIR",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"ValorIR"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

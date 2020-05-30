@@ -49,9 +49,26 @@ jobs:
       - run:
           name: docker build
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
+ dockerintergatedtest:
+    machine:
+      image: circleci/classic:201808-01 
+    steps:
+      - checkout
+      - run:
+          name: docker compose
+          command: docker-compose up -d
+      - run:
+          name: Install newman
+          command: npm install -g newman
+      - run:
+          name: Tests
+          command: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
+      - store_artifacts:
+          path: results/                     
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build  
       - dockerbuild
+      - dockerintergatedtest

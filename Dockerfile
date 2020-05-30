@@ -1,20 +1,27 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 as build-env
 
+#RUN cat /etc/*release
+
 # Atualiza as ferramentas linux e instala o JAVA
 RUN apt-get update && \
     apt-get install -y \
     openjdk-8-jdk 
 
+RUN curl -O https://download.java.net/java/GA/jdk13/5b8a42f3905b406298b72d750b6919f6/33/GPL/openjdk-13_linux-x64_bin.tar.gz
+RUN tar xvf openjdk-13_linux-x64_bin.tar.gz
+RUN mv jdk-13 /usr/lib/jvm/
+
+RUN cd /usr/lib/jvm/ && ls -l 
+RUN cd /usr/lib/jvm/jdk-13 && ls -l   
+
 # Configura o JAVA
 RUN update-alternatives --config java
-RUN export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+RUN export JAVA_HOME=/usr/lib/jvm/jdk-13
+ENV JAVA_HOME /usr/lib/jvm/jdk-13
 ENV PATH=${JAVA_HOME}/bin:$PATH 
 
 # Instala o sonnar
 RUN dotnet tool install --global dotnet-sonarscanner --version 4.7.1
-# instala ferramenta do Codecov
-RUN dotnet tool install --global Codecov.Tool
 # Variavel de path das ferramentas
 ENV PATH="${PATH}:/root/.dotnet/tools"
 # Define a pasta onde vai estar os arquivos
@@ -43,7 +50,15 @@ RUN dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --no-b
 # Realiza a Analise
 RUN dotnet sonarscanner end /d:sonar.login=$sonarLogin   
 # Cobertura no CodCov
-RUN codecov -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codecovToken
+
+RUN curl -o codecov.sh https://codecov.io/bash
+RUN curl -so codecovenv https://codecov.io/env
+RUN chmod +x codecov.sh
+RUN chmod +x codecovenv
+ENV ci_env=./codecovenv
+RUN ls  -l
+# Cobertura no CodCov
+RUN ./codecov.sh -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codecovToken
 # Publica a Aplicação
 RUN dotnet publish -c Release -o out
 # Build da imagem

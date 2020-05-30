@@ -58,3 +58,17 @@ jobs:
         uses: actions/checkout@master      
       - name: Docker build
         run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken=${{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
+
+  IntergratedTestsWithDocker:
+    needs: buildDocker
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@master  
+      - name: Docker Compose
+        run: docker-compose up -d
+      - name: Install newman
+        run: npm install -g newman
+      - name: Run Test
+        run: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json    
+

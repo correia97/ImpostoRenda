@@ -1,0 +1,11 @@
+sonar-project.properties
+.circleci
+.vs
+.vscode
+bin/
+obj/
+out/
+Dockerfile
+*compose.yml
+*pipelines.yml
+*.md

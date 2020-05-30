@@ -2,14 +2,20 @@ version: '3'
 services:
   # Api .net Core
   api:
-    build: src/API/
+    image: impostoapi
+    build:
+      context: src/
+      dockerfile: DockerfileApi
     depends_on:
       - mongo
     ports:
       - 3001:80
   # MVC .Net Core
   web:
-    build: src/WEB/
+    image: impostoweb
+    build: 
+      context: src/
+      dockerfile: DockerfileWeb
     depends_on:
       - api
     ports:

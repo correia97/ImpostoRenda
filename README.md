@@ -113,8 +113,15 @@ Criar as imagens Docker com o projeto e executar os container
 docker-compose build
 docker-compose up
 ```
-
 A API estara sendo executada na porta 3001 e o projeto MVC na porta 3002
+
+Rodando os testes via newman
+
+```bash
+npm install -g newman
+newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json
+```
+obs.: Será gerado uma pasta result com o arquivo result.json do teste
 
 #### Via Visual Studio
 

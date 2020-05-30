@@ -31,7 +31,8 @@ namespace ImpostoRendaLB3.Domain.Entities
 
         public decimal CalcularDesconto(decimal salario)
         {
-            return Math.Round(((salario * Aliquota) / 100) - ParcelaDeduzir, 2);
+            var desconto = (salario * Aliquota) / 100;
+            return Math.Round(desconto - ParcelaDeduzir, 2);
         }
     }
 }
