@@ -135,11 +135,10 @@ jobs:
       inputs:
         script: |
           docker-compose up --build -d
-          
-    - task: CmdLine@2
+    - task: Npm@1
       inputs:
-        script: |
-          npm install -g newman
+       command: 'custom'
+       customCommand: 'install -g newman'
 
     - task: CmdLine@2
       inputs:
