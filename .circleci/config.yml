@@ -64,8 +64,11 @@ jobs:
           name: Install newman
           command: npm install newman
       - run:
+          name: List folder
+          command: ls -l    
+      - run:
           name: Tests
-          command: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
+          command: ./newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
       - store_artifacts:
           path: results/    
 
