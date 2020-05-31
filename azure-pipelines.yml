@@ -131,18 +131,15 @@ jobs:
       inputs:
        dockerVersion: '17.09.0-ce'
 
-    - task: DockerCompose@0
-      inputs:                
-       dockerComposeFile: '**/docker-compose.yml'
-       action: 'Run a Docker Compose command'
-       dockerComposeCommand: 'up --build -d'
-       arguments: '--build -d'
-          
-    - task: Npm@1
+    - task: CmdLine@2
       inputs:
-       command: 'install'
-       workingDir: 'install newman -g'   
-
+        script: |
+          docker-compose up --build -d
+          
+    - task: CmdLine@2
+      inputs:
+        script: |
+          npm install -g newman
 
     - task: CmdLine@2
       inputs:
