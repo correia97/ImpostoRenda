@@ -70,7 +70,7 @@ jobs:
           path: results/    
 
 orbs:
-  node: 'circleci/node@x.y'
+  node: 'circleci/node@2.1.1'
 
 workflows:
   version: 2
