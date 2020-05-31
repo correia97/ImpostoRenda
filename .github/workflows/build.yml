@@ -62,16 +62,18 @@ jobs:
   IntergratedTestsWithDocker:
     needs: build
     runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
     steps:
       - name: Clone Repository
         uses: actions/checkout@master  
       - name: Docker Compose
         run: docker-compose up -d
-      - name: Install node
-        run: curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-             apt-get update && \
-             apt-get upgrade && \
-             apt-get install -y nodejs  
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Install newman
         run: npm install -g newman
       - name: Run Test
