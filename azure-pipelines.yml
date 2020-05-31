@@ -117,11 +117,10 @@ jobs:
    - task: DockerInstaller@0
      inputs:
       dockerVersion: '17.09.0-ce'
-   - task: Docker@2
+   - task: CmdLine@2
      inputs:
-      command: 'build'
-      Dockerfile: './Dockerfile'
-      arguments: '--build-arg sonarLogin=$SONARTOKEN --build-arg codecovToken=$CODECOVTOKEN .'
+        script: |
+          docker build --build-arg sonarLogin=$SONARTOKEN --build-arg codecovToken=$CODECOVTOKEN .
 
  - job: IntegratedTest
    displayName: Docker Build      
@@ -136,7 +135,7 @@ jobs:
       inputs:                
        dockerComposeFile: '**/docker-compose.yml'
        action: 'Run a Docker Compose command'
-       dockerComposeCommand: 'up'
+       dockerComposeCommand: 'up --build -d'
        arguments: '--build -d'
           
     - task: Npm@1
