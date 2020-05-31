@@ -70,7 +70,7 @@ jobs:
 
 orbs:
   node: 'circleci/node@2.1.1'
-  newman: postman/newman@1.0.0
+  newman: postman/newman@0.0.2
 
 workflows:
   version: 2
