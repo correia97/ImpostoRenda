@@ -11,150 +11,141 @@ jobs:
    displayName: Build do Azure      
    pool:
       vmImage: 'ubuntu-latest'
-   strategy:
-     runOnce:
-        build:
-          variables:
-            buildConfiguration: 'Release'
+   variables:
+    buildConfiguration: 'Release'
 
-          steps:
-          - task: DotNetCoreCLI@2
-            displayName: 'Restore'
-            inputs:
-              command: 'restore'
+   steps:
+   - task: DotNetCoreCLI@2
+     displayName: 'Restore'
+     inputs:
+      command: 'restore'
 
-          - task: SonarCloudPrepare@1
-            displayName: 'Configure Sonar'
-            inputs:
-              SonarCloud: 'Sonar'
-              organization: 'correia97'
-              scannerMode: 'MSBuild'
-              projectKey: 'correia97_ImpostoRendaLB3'
-              projectName: 'ImpostoRendaLB3'
-              extraProperties: |
-                    sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml
-                    sonar.branch.name=$(Build.SourceBranchName)
-                    sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/results/coverage.opencover.xml
+   - task: SonarCloudPrepare@1
+     displayName: 'Configure Sonar'
+     inputs:
+       SonarCloud: 'Sonar'
+       organization: 'correia97'
+       scannerMode: 'MSBuild'
+       projectKey: 'correia97_ImpostoRendaLB3'
+       projectName: 'ImpostoRendaLB3'
+       extraProperties: |
+            sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml
+            sonar.branch.name=$(Build.SourceBranchName)
+            sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/results/coverage.opencover.xml
 
-          - task: DotNetCoreCLI@2
-            displayName: 'Build'
-            inputs:
-              command: 'build'
+   - task: DotNetCoreCLI@2
+     displayName: 'Build'
+     inputs:
+      command: 'build'
 
-          - task: DotNetCoreCLI@2
-            displayName: 'Test'
-            inputs:
-              command: 'test'
-              arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$(Build.SourcesDirectory)/results/\'
-              testRunTitle: 'Tests'
+   - task: DotNetCoreCLI@2
+     displayName: 'Test'
+     inputs:
+      command: 'test'
+      arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$(Build.SourcesDirectory)/results/\'
+      testRunTitle: 'Tests'
 
-          - task: PublishCodeCoverageResults@1
-            displayName: 'Cobertura'
-            inputs:
-              codeCoverageTool: 'Cobertura'
-              summaryFileLocation: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
+   - task: PublishCodeCoverageResults@1
+     displayName: 'Cobertura'
+     inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
 
-          - task: SonarCloudAnalyze@1
-            displayName: 'Sonar Analyze'
+   - task: SonarCloudAnalyze@1
+     displayName: 'Sonar Analyze'
 
-          - task: SonarCloudPublish@1
-            displayName: 'Sonar Publish'
-            inputs:
-              pollingTimeoutSec: '300'
+   - task: SonarCloudPublish@1
+     displayName: 'Sonar Publish'
+     inputs:
+      pollingTimeoutSec: '300'
 
-          - task: CmdLine@2
-            displayName: Install CodeCov
-            inputs:
-              script: 'dotnet tool install --tool-path ./ Codecov.Tool'
+   - task: CmdLine@2
+     displayName: Install CodeCov
+     inputs:
+      script: 'dotnet tool install --tool-path ./ Codecov.Tool'
 
-          - task: CmdLine@2
-            displayName: Publish CodeCov
-            inputs:
-              script: './codecov -f "$(Build.SourcesDirectory)/results/coverage.opencover.xml" -t $(codecovToken)'
+   - task: CmdLine@2
+     displayName: Publish CodeCov
+     inputs:
+      script: './codecov -f "$(Build.SourcesDirectory)/results/coverage.opencover.xml" -t $(codecovToken)'
 
-          - task: reportgenerator@4
-            displayName: Report
-            inputs:
-              reports: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
-              targetdir: '$(Build.SourcesDirectory)/results/'
-              sourcedirs: '$(Build.SourcesDirectory)/results/'
+   - task: reportgenerator@4
+     displayName: Report
+     inputs:
+      reports: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
+      targetdir: '$(Build.SourcesDirectory)/results/'
+      sourcedirs: '$(Build.SourcesDirectory)/results/'
 
-          - task: PublishTestResults@2
-            displayName: Publish Test Result
-            inputs:
-              testResultsFormat: 'XUnit'
-              testResultsFiles: '**/*.xml'
-              searchFolder: '$(Build.SourcesDirectory)/results/'
+   - task: PublishTestResults@2
+     displayName: Publish Test Result
+     inputs:
+      testResultsFormat: 'XUnit'
+      testResultsFiles: '**/*.xml'
+      searchFolder: '$(Build.SourcesDirectory)/results/'
 
-          - task: DotNetCoreCLI@2
-            displayName: 'Publish API'
-            inputs:
-              command: 'publish'
-              publishWebProjects: false
-              projects: '**/ImpostoRendaLB3.API.csproj'
-              arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/api'
-              workingDirectory: '$(Build.SourcesDirectory)'
+   - task: DotNetCoreCLI@2
+     displayName: 'Publish API'
+     inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: '**/ImpostoRendaLB3.API.csproj'
+      arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/api'
+      workingDirectory: '$(Build.SourcesDirectory)'
 
-          - task: DotNetCoreCLI@2
-            displayName: 'Publish WEB'
-            inputs:
-              command: 'publish'
-              publishWebProjects: true
-              projects: '**/ImpostoRendaLB3.Web.csproj'
-              arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/web'
-              workingDirectory: '$(Build.SourcesDirectory)'
+   - task: DotNetCoreCLI@2
+     displayName: 'Publish WEB'
+     inputs:
+      command: 'publish'
+      publishWebProjects: true
+      projects: '**/ImpostoRendaLB3.Web.csproj'
+      arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/web'
+      workingDirectory: '$(Build.SourcesDirectory)'
 
-          - task: PublishBuildArtifacts@1
-            displayName: 'Publish Artifacst'
-            inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'drop'
-              publishLocation: 'Container'
-            condition: succeededOrFailed()
+   - task: PublishBuildArtifacts@1
+     displayName: 'Publish Artifacst'
+     inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+     condition: succeededOrFailed()
+     
  - job: DockerBuid
    displayName: Docker Build      
    pool:
       vmImage: 'ubuntu-latest'
-   strategy:
-     runOnce:
-        build:
-          steps:                    
-          - task: DockerInstaller@0
-            inputs:
-              dockerVersion: '17.09.0-ce'
-
-          - task: Docker@2
-            inputs:
-              command: 'build'
-              Dockerfile: './Dockerfile'
-              arguments: '--build-arg sonarLogin=$SONARTOKEN --build-arg codecovToken=$CODECOVTOKEN .'
+   steps:                    
+   - task: DockerInstaller@0
+     inputs:
+      dockerVersion: '17.09.0-ce'
+   - task: Docker@2
+     inputs:
+      command: 'build'
+      Dockerfile: './Dockerfile'
+      arguments: '--build-arg sonarLogin=$SONARTOKEN --build-arg codecovToken=$CODECOVTOKEN .'
 
  - job: IntegratedTest
    displayName: Docker Build      
    pool:
       vmImage: 'ubuntu-latest'
-   strategy:
-     runOnce:
-        build:
-          steps:                    
-          - task: DockerInstaller@0
-            inputs:
-              dockerVersion: '17.09.0-ce'
+   steps:                    
+    - task: DockerInstaller@0
+      inputs:
+       dockerVersion: '17.09.0-ce'
 
-          - task: DockerCompose@0
-            inputs:                
-              dockerComposeFile: '**/docker-compose.yml'
-              action: 'Run a Docker Compose command'
-              dockerComposeCommand: 'up'
-              arguments: '--build -d'
-                  
-          - task: Npm@1
-            inputs:
-              command: 'install'
-              workingDir: 'install newman -g'   
+    - task: DockerCompose@0
+      inputs:                
+       dockerComposeFile: '**/docker-compose.yml'
+       action: 'Run a Docker Compose command'
+       dockerComposeCommand: 'up'
+       arguments: '--build -d'
+          
+    - task: Npm@1
+      inputs:
+       command: 'install'
+       workingDir: 'install newman -g'   
 
 
-          - task: CmdLine@2
-            inputs:
-              script: |
-                  newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json        
+    - task: CmdLine@2
+      inputs:
+        script: |
+          newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json        
