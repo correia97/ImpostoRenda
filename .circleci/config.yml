@@ -59,24 +59,23 @@ jobs:
 
  dockerIntergatedtest:
     machine:
-      image: docker:stable 
+      image: circleci/classic:201808-01 
     steps:
       - checkout
+
+      - node/install:
+          node-version: latest
+
       - run:
           name: docker compose
           command: docker-compose up --build -d
 
       - run:
-          name: Install npm
-          command: apk add --update nodejs nodejs-npm
-
-      - run:
           name: Install newman
-          command: npm install -g newman 
+          command: npm install newman 
 
-      - run:
-          name: Run Collection
-          command: newman ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
+      - newman/newman-run:
+          collection: ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
 
       - store_artifacts:
           path: results/    
