@@ -52,7 +52,7 @@ jobs:
   buildDocker:
     needs: build
     name: Docker
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
       - name: Clone Repository
         uses: actions/checkout@master      
@@ -61,7 +61,7 @@ jobs:
 
   intergratedTestsWithDocker:
     needs: build
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [10.x, 12.x, 13.x, 14.x]
