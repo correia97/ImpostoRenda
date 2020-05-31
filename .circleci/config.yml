@@ -5,22 +5,27 @@ jobs:
      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
    steps:
      - checkout
+     
      - run:
          name: Restore packages
          command:
            dotnet restore
+     
      - run:
          name: install Tool CodeCov
          command:
            dotnet tool install --tool-path ./ Codecov.Tool    
+     
      - run:
          name: install Tool ReportGenerator
          command:
            dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool       
+     
      - run:
          name: Build App
          command:
            dotnet build
+     
      - run:
          name: Run Test
          command:
@@ -37,34 +42,41 @@ jobs:
            ./reportgenerator "-reports:/root/project/results/coverage.opencover.xml" \
                             "-targetdir:/root/project/results/" \
                             "-reporttypes:Html" \
-                            "-sourcedirs:/root/project/results/"        
-
+                            "-sourcedirs:/root/project/results/"  
+     
      - store_artifacts:
           path: results/
- dockerbuild:
+
+ dockerBuild:
     machine:
       image: circleci/classic:201808-01 
     steps:
       - checkout
+
       - run:
           name: docker build
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
- dockerintergatedtest:
+
+ dockerIntergatedtest:
     machine:
       image: circleci/classic:201808-01 
     steps:
       - checkout
+
       - node/install:
-          install-yarn: true
           node-version: latest
+
       - run:
           name: docker compose
           command: docker-compose up --build -d
+
       - run:
           name: Install newman
           command: npm install newman 
+
       - newman/newman-run:
           collection: ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
+
       - store_artifacts:
           path: results/    
 
@@ -77,5 +89,5 @@ workflows:
   build_and_test:
     jobs:
       - build  
-      - dockerbuild
-      - dockerintergatedtest
+      - dockerBuild
+      - dockerIntergatedtest
