@@ -59,10 +59,10 @@ jobs:
           node-version: latest
       - run:
           name: docker compose
-          command: docker-compose up -d
+          command: docker-compose up --build -d
       - run:
           name: Install newman
-          command: npm install -g newman
+          command: npm install newman
       - run:
           name: Tests
           command: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
