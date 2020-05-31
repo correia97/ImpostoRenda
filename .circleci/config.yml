@@ -62,18 +62,15 @@ jobs:
           command: docker-compose up --build -d
       - run:
           name: Install newman
-          command: npm install newman
-      - run:
-          name: List folder
-          command: ls -l    
-      - run:
-          name: Tests
-          command: ./newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
+          command: npm install newman 
+      - newman/newman-run:
+          collection: ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
       - store_artifacts:
           path: results/    
 
 orbs:
   node: 'circleci/node@2.1.1'
+  newman: postman/newman@1.0.0
 
 workflows:
   version: 2

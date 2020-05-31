@@ -12,6 +12,6 @@ RUN dotnet publish ./API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj -c Relea
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6-alpine3.9
 WORKDIR /app
 COPY --from=build-env /app/API/ImpostoRendaLB3.API/out/ .
-RUN ls -l
+
 ENV ASPNETCORE_ENVIRONMENT=docker
 ENTRYPOINT [ "dotnet","ImpostoRendaLB3.API.dll"]

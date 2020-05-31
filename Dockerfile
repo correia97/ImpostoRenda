@@ -54,11 +54,11 @@ RUN curl -so codecovenv https://codecov.io/env
 RUN chmod +x codecov.sh
 RUN chmod +x codecovenv
 ENV ci_env=./codecovenv
-
 # Cobertura no CodCov
 RUN ./codecov.sh -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codecovToken
 # Publica a Aplicação
 RUN dotnet publish -c Release -o out
+
 # Build da imagem
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6-alpine3.9 as API
 # Define a pasta onde vai estar os arquivos
