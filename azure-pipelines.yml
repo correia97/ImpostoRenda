@@ -122,32 +122,19 @@ jobs:
         script: |
           docker build --build-arg sonarLogin=$(sonarToken) --build-arg codecovToken=$(codecovToken) .
 
- - job: IntegratedTest
+ - job: IntegratedTestOnDocker
    displayName: Testes Integrados      
-   pool:
-      vmImage: 'ubuntu-latest'
-   steps:                    
-    - task: DockerInstaller@0
-      displayName: Instalação Docker
-      inputs:
-       dockerVersion: '17.09.0-ce'
-
+   container: docker:stable
+   steps:                   
     - task: CmdLine@2
       displayName: Docker Compose
       inputs:
         script: |
           docker-compose up --build -d
-
-    - task: NewmanPostman@4
-      inputs:
-        collectionSourceType: 'file'
-        Contents: '**/ImpostoRenda.postman_collection.json'
-        environmentSourceType: 'none'
-        numberOfIterations: '10'
-        reporters: 'cli, json'
-        reporterHtmlTemplate: './result/result.hml'
         
     - task: CmdLine@2
       inputs:
         script: |
-          newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json        
+          apk add --update nodejs nodejs-npm
+          npm install -g newman
+          newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json                         
