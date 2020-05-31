@@ -138,12 +138,6 @@ jobs:
         script: |
           docker-compose up --build -d
 
-    - task: Npm@1
-      displayName: Install Newman
-      inputs:
-       command: 'custom'
-       customCommand: 'install newman'
-
     - task: NewmanPostman@4
       inputs:
         collectionSourceType: 'file'
