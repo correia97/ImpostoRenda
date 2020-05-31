@@ -110,7 +110,7 @@ jobs:
      condition: succeededOrFailed()
      
  - job: DockerBuid
-   displayName: Docker Build      
+   displayName: Build no Docker      
    pool:
       vmImage: 'ubuntu-latest'
    steps:                    
@@ -120,10 +120,10 @@ jobs:
    - task: CmdLine@2
      inputs:
         script: |
-          docker build --build-arg sonarLogin=$SONARTOKEN --build-arg codecovToken=$CODECOVTOKEN .
+          docker build --build-arg sonarLogin=$(sonarToken) --build-arg codecovToken=$(codecovToken) .
 
  - job: IntegratedTest
-   displayName: Docker Build      
+   displayName: Testes Integrados      
    pool:
       vmImage: 'ubuntu-latest'
    steps:                    
