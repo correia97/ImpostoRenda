@@ -52,11 +52,11 @@ jobs:
  dockerintergatedtest:
     machine:
       image: circleci/classic:201808-01 
-    executor:
-      name: node/default
-      tag: '13'  
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: latest
       - run:
           name: docker compose
           command: docker-compose up -d
