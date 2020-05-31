@@ -59,7 +59,7 @@ jobs:
       - name: Docker build
         run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken=${{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
 
-  IntergratedTestsWithDocker:
+  intergratedTestsWithDocker:
     needs: build
     runs-on: [ubuntu-latest]
     strategy:
