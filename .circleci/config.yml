@@ -1,3 +1,6 @@
+orbs: # declare what orbs we are going to use
+  node: circleci/node@2.0.2 # the node orb provides common node-related configuration 
+
 version: 2.0
 jobs:
  build:
@@ -57,12 +60,6 @@ jobs:
       - run:
           name: docker compose
           command: docker-compose up -d
-      - run:
-          name: Install Node
-          command: curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-             apt-get update && \
-             apt-get upgrade && \
-             apt-get install -y nodejs   
       - run:
           name: Install newman
           command: npm install -g newman
