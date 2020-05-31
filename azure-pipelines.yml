@@ -128,18 +128,31 @@ jobs:
       vmImage: 'ubuntu-latest'
    steps:                    
     - task: DockerInstaller@0
+      displayName: Instalação Docker
       inputs:
        dockerVersion: '17.09.0-ce'
 
     - task: CmdLine@2
+      displayName: Docker Compose
       inputs:
         script: |
           docker-compose up --build -d
+
     - task: Npm@1
+      displayName: Install Newman
       inputs:
        command: 'custom'
        customCommand: 'install newman'
 
+    - task: NewmanPostman@4
+      inputs:
+        collectionSourceType: 'file'
+        Contents: '**/ImpostoRenda.postman_collection.json'
+        environmentSourceType: 'none'
+        numberOfIterations: '10'
+        reporters: 'cli, json'
+        reporterHtmlTemplate: './result/result.hml'
+        
     - task: CmdLine@2
       inputs:
         script: |
