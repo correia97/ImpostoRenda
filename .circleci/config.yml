@@ -61,13 +61,9 @@ jobs:
     executor: newman/postman-newman-docker
     steps:
       - checkout
-
-      - node/install:
-          node-version: latest
-
       - run:
-          name: Install newman
-          command: npm install newman 
+          name: docker compose
+          command: docker-compose up -d
 
       - newman/newman-run:
           collection: ./ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
