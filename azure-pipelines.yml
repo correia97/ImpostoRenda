@@ -126,7 +126,7 @@ jobs:
  - job: IntegratedTest
    displayName: Docker Build      
    pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
    steps:                    
     - task: DockerInstaller@0
       inputs:
