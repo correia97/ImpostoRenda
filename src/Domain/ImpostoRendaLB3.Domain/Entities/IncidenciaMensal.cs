@@ -17,6 +17,7 @@ namespace ImpostoRendaLB3.Domain.Entities
         {
         }
         
+        
         public decimal ValorInicial { get => _ValorInicial; set => _ValorInicial = value; }
         public decimal ValorFinal { get => _ValorFinal; set => _ValorFinal =value; }
         public decimal Aliquota { get => _Aliquota; set => _Aliquota = value; }
