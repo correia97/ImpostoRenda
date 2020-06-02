@@ -58,15 +58,25 @@ jobs:
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
 
  dockerIntergatedtest:
-    executor: newman/postman-newman-docker
+    docker:
+     - image: docker:stable
     steps:
-      - checkout
+      - checkout      
+      - run:
+          name: Install node
+          command: apk add --update nodejs npm
+      
+      - run:
+          name: update npm
+          command: npm install -g newman
+
       - run:
           name: docker compose
           command: docker-compose up -d
-
-      - newman/newman-run:
-          collection: ./ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
+      
+      - run:
+          name: Run Tests
+          command: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
 
       - store_artifacts:
           path: results/    
