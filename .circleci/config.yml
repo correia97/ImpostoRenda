@@ -70,6 +70,11 @@ jobs:
           name: update npm
           command: npm install -g newman
 
+
+      - run:
+          name: update npm
+          command: docker pull docker/compose
+
       - run:
           name: docker compose
           command: docker-compose up -d
