@@ -28,7 +28,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: code-coverage-report
-        path: /home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/Index.html
+        path: /home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/index.html
 
   sonarCloudTrigger:
     needs: build
