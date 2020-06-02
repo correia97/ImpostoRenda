@@ -72,7 +72,7 @@ jobs:
 
 
       - run:
-          name: update npm
+          name: Pull Docker Compose
           command: docker pull docker/compose
 
       - run:
