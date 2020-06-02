@@ -134,10 +134,11 @@ jobs:
 
     - task: DockerCompose@0
       inputs:                
-       dockerComposeFile: '**/docker-compose.yml'
-       action: 'Run a Docker Compose command'
-       dockerComposeCommand: 'up --build -d'
-       arguments: '--build -d'
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'DockerHub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: 'up --build -d'
           
     - task: Npm@1
       inputs:
