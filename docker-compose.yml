@@ -22,7 +22,7 @@ services:
       - 3002:80 
   #  Imagem Oficial do mongo 
   mongo:
-    image: mongo:4.1.13
+    image: mongo:latest
     ports:
        - 27017:27017 
     volumes:
