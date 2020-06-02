@@ -1,6 +1,6 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=correia97_ImpostoRendaLB3&metric=alert_status)](https://sonarcloud.io/dashboard?id=correia97_ImpostoRendaLB3) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=correia97_ImpostoRendaLB3&metric=coverage)](https://sonarcloud.io/dashboard?id=correia97_ImpostoRendaLB3) 
 [![Build Status](https://dev.azure.com/pauloc/ImpostoRenda/_apis/build/status/Build%20Test?branchName=master)](https://dev.azure.com/pauloc/ImpostoRenda/_build/latest?definitionId=1&branchName=master)
-[![CircleCI](https://circleci.com/gh/correia97/ImpostoRendaLB3.svg?style=svg)](https://circleci.com/gh/correia97/ImpostoRendaLB3) [![codecov](https://codecov.io/gh/correia97/ImpostoRendaLB3/branch/master/graph/badge.svg)](https://codecov.io/gh/correia97/ImpostoRendaLB3)
+[![CircleCI](https://circleci.com/gh/correia97/ImpostoRendaLB3.svg?style=svg)](https://circleci.com/gh/correia97/ImpostoRendaLB3) [![codecov](https://codecov.io/gh/correia97/ImpostoRendaLB3/branch/master/graph/badge.svg)](https://codecov.io/gh/correia97/ImpostoRendaLB3) ![Git Buil](https://github.com/correia97/ImpostoRendaLB3/workflows/Git%20Buil/badge.svg)
 
 # ImpostoRenda
 
