@@ -62,10 +62,7 @@ jobs:
      - image: ubuntu:20.10
     steps:
       - checkout   
-      - run:
-          name: Remove docker
-          command: apt-get remove docker docker-engine docker.io containerd runc -y
-          
+                
       - run:
           name: Install dependece
           command: apt-get update && \
