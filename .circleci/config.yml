@@ -48,12 +48,11 @@ jobs:
           path: results/
 
  dockerBuild:
-    machine:
-      image: cimg/base:2020.01 
-    steps:
-      - checkout
-
-      - run:
+  docker:
+     - image: cimg/base:2020.01 
+  steps:
+     - checkout
+     - run:
           name: docker build
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
 
@@ -62,6 +61,9 @@ jobs:
      - image: cimg/base:2020.01
     steps:
       - checkout   
+      - run:
+          name: Npm Install
+          command: apt-get update && apt-get install -y nodejs npm
       - run:
           name: install newman
           command: npm install newman
