@@ -68,9 +68,7 @@ jobs:
 
       - run:
           name: Start Docker service
-          command: apk update && \
-                    rc-update add docker boot && \
-                    service docker start
+          command: rc-status --list
 
       - run:
           name: Install node
