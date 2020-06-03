@@ -48,25 +48,27 @@ jobs:
           path: results/
 
  dockerBuild:
-  docker:
-     - image: cimg/base:2020.01 
-  steps:
-     - checkout
-     - run:
+    machine:
+      image: circleci/classic:201808-01 
+    steps:
+      - checkout
+
+      - run:
           name: docker build
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
 
  dockerIntergatedtest:
-    docker:
-     - image: cimg/base:2020.01
+    machine:
+      image: circleci/classic:201808-01
     steps:
-      - checkout   
+      - checkout      
       - run:
-          name: Npm Install
+          name: Install node
           command: apt-get update && apt-get install -y nodejs npm
+      
       - run:
           name: install newman
-          command: npm install newman
+          command: npm install -g newman
 
       - run:
           name: docker compose
