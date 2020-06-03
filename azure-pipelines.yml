@@ -142,10 +142,10 @@ jobs:
           npm install -g newman 
 
     - task: CmdLine@2
-      displayName: 'Run Mongo'
+      displayName: 'Docker Compose'
       inputs:
         script: |
-          docker compose up -d
+          docker-compose up -d
 
     - task: CmdLine@2
       displayName: 'Run Collection'
