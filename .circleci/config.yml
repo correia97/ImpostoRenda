@@ -64,7 +64,7 @@ jobs:
       - checkout   
       - run:
           name: install newman
-          command: npm install -g newman
+          command: npm install newman
 
       - run:
           name: docker compose
