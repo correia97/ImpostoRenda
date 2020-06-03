@@ -62,11 +62,13 @@ jobs:
      - image: ubuntu:20.10
     steps:
       - checkout   
-                
+
       - run:
           name: Install dependece
-          command: apt-get update && \
-                    apt-get install -y \
+          command: apt-get update 
+      - run:
+          name: Install dependece
+          command:  apt-get install -y \
                     apt-transport-https \
                     ca-certificates \
                     curl \
