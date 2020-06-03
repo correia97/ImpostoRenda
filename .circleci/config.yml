@@ -49,7 +49,7 @@ jobs:
 
  dockerBuild:
     machine:
-      image: circleci/classic:201808-01 
+      image: cimg/base:2020.01 
     steps:
       - checkout
 
@@ -59,7 +59,7 @@ jobs:
 
  dockerIntergatedtest:
     docker:
-     - image: circleci/node:14.3.0-stretch
+     - image: cimg/base:2020.01
     steps:
       - checkout   
       - run:
