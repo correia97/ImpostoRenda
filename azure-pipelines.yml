@@ -126,32 +126,25 @@ jobs:
  - job: IntegratedTest
    displayName: Docker Build      
    pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'windows-latest'
    steps:                    
     - task: DockerInstaller@0
       inputs:
-       dockerVersion: '17.09.0-ce'
-
-    - task: DockerCompose@0
-      inputs:                
-        containerregistrytype: 'Container Registry'
-        dockerRegistryEndpoint: 'DockerHub'
-        dockerComposeFile: '**/docker-compose.yml'
-        action: 'Run a Docker Compose command'
-        dockerComposeCommand: 'up --build -d'
+       dockerVersion: '17.09.0-ce'            
+    - task: Npm@1
+      inputs:
+       command: 'install'
+       workingDir: 'install newman -g'   
 
     - task: CmdLine@2
       inputs:
         script: |
-            node -v
-            npm -v
-            
-    - task: Npm@1
+          docker run -d -p 27017:27017 mongo:4.2.0
+
+    - task: CmdLine@2
       inputs:
-       command: 'install'
-       workingDir: 'install newman'   
-
-
+        script: |
+          dotnet run --project src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj -c Release
     - task: CmdLine@2
       inputs:
         script: |
