@@ -68,8 +68,9 @@ jobs:
 
       - run:
           name: Start Docker service
-          command: rc-status --list
-
+          command: apk add openrc --no-cache && rc-status --list && \          
+                   service docker start
+          
       - run:
           name: Install node
           command: apk add --update nodejs npm
