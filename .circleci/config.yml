@@ -59,17 +59,20 @@ jobs:
 
  dockerIntergatedtest:
     docker:
-     - image: docker:stable
+     - image: docker:latest
     steps:
-      - checkout      
+      - checkout   
+      - run:
+          name: Linux Version
+          command: cat /etc/*release 
+
       - run:
           name: Install node
           command: apk add --update nodejs npm
       
       - run:
-          name: update npm
+          name: install newman
           command: npm install -g newman
-
 
       - run:
           name: Pull Docker Compose
