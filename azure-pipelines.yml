@@ -110,42 +110,50 @@ jobs:
      condition: succeededOrFailed()
      
  - job: DockerBuid
-   displayName: Build no Docker      
+   displayName: Build no Docker
    pool:
       vmImage: 'ubuntu-latest'
-   steps:                    
+   steps:
    - task: DockerInstaller@0
+     displayName: 'Install Docker'
      inputs:
       dockerVersion: '17.09.0-ce'
    - task: CmdLine@2
+     displayName: 'Run Docker build'
      inputs:
         script: |
           docker build --build-arg sonarLogin=$(sonarToken) --build-arg codecovToken=$(codecovToken) .
 
 
  - job: IntegratedTest
-   displayName: Docker Build      
+   displayName: Docker Build
    pool:
       vmImage: 'windows-latest'
-   steps:                    
+   steps:
     - task: DockerInstaller@0
+      displayName: 'Install Docker'
       inputs:
-       dockerVersion: '17.09.0-ce'            
-    - task: Npm@1
+       dockerVersion: '17.09.0-ce'
+
+    - task: CmdLine@2    
+      displayName: 'Install newman'
       inputs:
-       command: 'install'
-       workingDir: 'install newman -g'   
+        script: |
+          npm install -g newman 
 
     - task: CmdLine@2
+      displayName: 'Run Mongo'
       inputs:
         script: |
           docker run -d -p 27017:27017 mongo:4.2.0
 
     - task: CmdLine@2
+      displayName: 'Run Project'
       inputs:
         script: |
           dotnet run --project src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj -c Release
     - task: CmdLine@2
+      displayName: 'Run Collection'
       inputs:
         script: |
           newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json                          
