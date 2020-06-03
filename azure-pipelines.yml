@@ -139,7 +139,13 @@ jobs:
         dockerComposeFile: '**/docker-compose.yml'
         action: 'Run a Docker Compose command'
         dockerComposeCommand: 'up --build -d'
-          
+
+    - task: CmdLine@2
+      inputs:
+        script: |
+            node -v
+            npm -v
+            
     - task: Npm@1
       inputs:
        command: 'install'
