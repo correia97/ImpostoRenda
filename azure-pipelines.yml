@@ -145,7 +145,7 @@ jobs:
       displayName: 'Run Mongo'
       inputs:
         script: |
-          docker run -d -p 27017:27017 mongo:4.2.0
+          docker run -d -p 27017:27017 mongo
 
     - task: CmdLine@2
       displayName: 'Run Project'
