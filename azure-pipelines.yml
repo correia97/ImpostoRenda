@@ -145,13 +145,8 @@ jobs:
       displayName: 'Run Mongo'
       inputs:
         script: |
-          docker run -d -p 27017:27017 mongo
+          docker compose up -d
 
-    - task: CmdLine@2
-      displayName: 'Run Project'
-      inputs:
-        script: |
-          dotnet run --project src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj -c Release
     - task: CmdLine@2
       displayName: 'Run Collection'
       inputs:
