@@ -143,7 +143,7 @@ jobs:
     - task: Npm@1
       inputs:
        command: 'install'
-       workingDir: 'install newman -g'   
+       workingDir: 'install newman'   
 
 
     - task: CmdLine@2
