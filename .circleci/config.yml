@@ -67,6 +67,10 @@ jobs:
           command: cat /etc/*release 
 
       - run:
+          name: Start Docker service
+          command: service docker start
+
+      - run:
           name: Install node
           command: apk add --update nodejs npm
       
