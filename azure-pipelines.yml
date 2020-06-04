@@ -145,7 +145,7 @@ jobs:
       displayName: 'Docker Compose'
       inputs:
         script: |
-          docker-compose up -d
+          docker-compose up --build -d
 
     - task: CmdLine@2
       displayName: 'Run Collection'
