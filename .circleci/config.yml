@@ -68,8 +68,13 @@ jobs:
           command: cat /etc/*release
 
       - run:
+          name: APT-GET Update e upgrade
+          command: sudo apt-get update && sudo apt-get upgrade -y  
+
+
+      - run:
           name: Install curl 
-          command:  sudo apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+          command:  sudo apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates
 
       - run:
           name: Donwload node
