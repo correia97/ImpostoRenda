@@ -62,7 +62,9 @@ jobs:
       image: circleci/classic:201808-01
     steps:
       - checkout      
-      
+      - run:
+          name: Update Linux Key
+          command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run:
           name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -

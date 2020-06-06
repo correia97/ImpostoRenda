@@ -7,8 +7,8 @@ install:
 script:
  - dotnet restore
  - dotnet build
- - dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
- - ./reportgenerator "-reports:/results/coverage.opencover.xml" \
-                            "-targetdir:/results/" \
+ - dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="/home/travis/build/correia97/ImpostoRendaLB3/results/"
+ - ./reportgenerator "-reports:/home/travis/build/correia97/ImpostoRendaLB3/results/coverage.opencover.xml" \
+                            "-targetdir:/home/travis/build/correia97/ImpostoRendaLB3/results/" \
                             "-reporttypes:Html" \
-                            "-sourcedirs:/results/"  
+                            "-sourcedirs:/home/travis/build/correia97/ImpostoRendaLB3/results/"  
