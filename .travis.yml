@@ -1,7 +1,14 @@
 language: csharp
 dotnet: 2.2.207
+mono: none
 solution: ImpostoRendaLB3.sln
+install:
+  - dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool 
 script:
  - dotnet restore
  - dotnet build
  - dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
+ - ./reportgenerator "-reports:/results/coverage.opencover.xml" \
+                            "-targetdir:/results/" \
+                            "-reporttypes:Html" \
+                            "-sourcedirs:/results/"  
