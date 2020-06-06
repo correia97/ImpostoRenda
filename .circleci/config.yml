@@ -64,7 +64,8 @@ jobs:
       - checkout      
       - run:
           name: Install node
-          command: sudo apt-get update && apt-get install -y nodejs npm
+          command: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+                    sudo apt-get update && apt-get install -y nodejs npm
       
       - run:
           name: install newman
