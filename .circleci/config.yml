@@ -59,9 +59,14 @@ jobs:
 
  dockerIntergatedtest:
     machine:
-      image: 'ubuntu-1604:201903-01'
+      image: 'circleci/classic:201808-01'
     steps:
-      - checkout      
+      - checkout       
+      
+      - run:
+          name: Linux version
+          command: cat /etc/*release
+
       - run:
           name: APT-GET Update e upgrade
           command: sudo apt-get update && sudo apt-get upgrade -y  
