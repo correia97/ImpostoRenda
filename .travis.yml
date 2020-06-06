@@ -1,0 +1,6 @@
+language: csharp
+dotnet: 2.2.207
+solution: ImpostoRendaLB3.sln
+script:
+ - dotnet restore
+ - dotnet test /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
