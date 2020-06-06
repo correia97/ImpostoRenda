@@ -73,7 +73,9 @@ jobs:
       - run:
           name: Update Key 3
           command: wget -q -O - https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
-
+      - run:
+          name: Update Key 4
+          command: sudo ppa-purge ppa:mc3man/trusty-media
       - run:
           name: Install node
           command: sudo apt-get update && apt-get install -y nodejs npm
