@@ -64,7 +64,7 @@ jobs:
       - checkout      
       - run:
           name: Donwload node
-          command: sudo apt-get -y update upgrade 
+          command: sudo apt-get update upgrade -y
       - run:
           name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
