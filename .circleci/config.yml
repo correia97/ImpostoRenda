@@ -65,7 +65,9 @@ jobs:
       
       - run:
           name: Install node
-          command: sudo apt-get install -y nodejs npm
+          command: sudo apt-update && \
+                    apt-upgrade && \
+                     apt-get install -y nodejs npm
       
       - run:
           name: install newman
