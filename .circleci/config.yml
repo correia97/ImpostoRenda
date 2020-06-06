@@ -71,7 +71,7 @@ jobs:
 
       - run:
           name: Install node
-          command: sudo apt-get install -y nodejs npm
+          command: sudo apt-get install -y nodejs
 
       - run:
           name: install newman
