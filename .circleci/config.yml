@@ -63,6 +63,9 @@ jobs:
     steps:
       - checkout      
       - run:
+          name: APT-GET Update e upgrade
+          command: sudo apt-get update
+      - run:
           name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
