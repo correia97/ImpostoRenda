@@ -64,6 +64,9 @@ jobs:
       - checkout      
       - run:
           name: Donwload node
+          command: sudo apt-get -y update upgrade 
+      - run:
+          name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 
       - run:
@@ -76,8 +79,10 @@ jobs:
 
       - run:
           name: docker compose
-          command: docker-compose up -d
-      
+          command: docker-compose up --build -d
+      - run:
+          name: Node version
+          command: nodejs --version   
       - run:
           name: Run Tests
           command: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
