@@ -59,27 +59,9 @@ jobs:
 
  dockerIntergatedtest:
     machine:
-      image: circleci/classic:201808-01
+      image: 'ubuntu-1604:201903-01'
     steps:
       - checkout      
-      - run:
-          name: Update Linux Key 1
-          command:  wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-
-      - run:
-          name: Update Linux Key 2
-          command:  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-
-
-      - run:
-          name: Update Linux Key 4
-          command:  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6494C6D6997C215E
-
-      - run:
-          name: Update Linux Key 3
-          command: wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sudo sh
-
-
       - run:
           name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
