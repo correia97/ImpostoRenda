@@ -71,6 +71,9 @@ jobs:
           name: APT-GET Update e upgrade
           command: sudo apt-get update && sudo apt-get upgrade -y  
 
+      - run:
+          name: Remove Current Node
+          command: sudo apt-get remove nodejs -y 
 
       - run:
           name: Install curl 
