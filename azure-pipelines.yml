@@ -141,11 +141,21 @@ jobs:
         script: |
           sudo npm install -g newman 
 
+    - task: DockerCompose@0
+      displayName: 'Docker compose'
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'DockerHub'
+        dockerComposeFile: '**/docker-compose.yml'
+        action: 'Run services'
+        arguments: '--build -d'
+
+
     - task: CmdLine@2
-      displayName: 'Run Mongo'
+      displayName: 'Docker Compose'
       inputs:
         script: |
-          docker compose up -d
+          docker-compose up --build -d
 
     - task: CmdLine@2
       displayName: 'Run Collection'
