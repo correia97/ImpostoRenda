@@ -65,10 +65,14 @@ jobs:
       - run:
           name: Update Key
           command: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-            
+
       - run:
           name: Update Key 2
           command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+      - run:
+          name: Update Key 3
+          command: wget -q -O - https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
 
       - run:
           name: Install node
