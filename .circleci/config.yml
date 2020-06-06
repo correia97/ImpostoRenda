@@ -64,11 +64,11 @@ jobs:
       - checkout      
       - run:
           name: Install node
-          command: apt-get update && apt-get install -y nodejs npm
+          command: sudo apt-get update && apt-get install -y nodejs npm
       
       - run:
           name: install newman
-          command: npm install -g newman
+          command: sudo npm install -g newman
 
       - run:
           name: docker compose

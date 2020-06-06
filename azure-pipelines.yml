@@ -128,7 +128,7 @@ jobs:
  - job: IntegratedTest
    displayName: Docker Build
    pool:
-      vmImage: 'windows-latest'
+      vmImage: 'ubuntu-latest'
    steps:
     - task: DockerInstaller@0
       displayName: 'Install Docker'
@@ -139,7 +139,7 @@ jobs:
       displayName: 'Install newman'
       inputs:
         script: |
-          npm install -g newman 
+          sudo npm install -g newman 
 
     - task: CmdLine@2
       displayName: 'Run Mongo'
