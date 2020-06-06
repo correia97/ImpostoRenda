@@ -63,8 +63,12 @@ jobs:
     steps:
       - checkout      
       - run:
-          name: Donwload node
+          name: Update Key
           command: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+            
+      - run:
+          name: Update Key 2
+          command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 
       - run:
           name: Install node
