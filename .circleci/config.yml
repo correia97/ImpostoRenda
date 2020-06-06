@@ -64,13 +64,13 @@ jobs:
       - checkout      
       - run:
           name: Update Linux Key 1
-          command: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          command: sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run:
           name: Update Linux Key 2
-          command: wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          command: sudo wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
       - run:
           name: Update Linux Key 3
-          command: wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+          command: sudo wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
       - run:
           name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
