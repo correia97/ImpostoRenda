@@ -13,7 +13,7 @@
 					"script": {
 						"id": "5ca4c40b-a52f-464f-9b4e-cec1abb3a066",
 						"exec": [
-							"var data = [{\"salario\":600,\"aliquota\":0,\"message\":\"Não existe Aliquota para o salário informado\"},{\"salario\":1904,\"aliquota\":7.5,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":2827,\"aliquota\":15,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":3752,\"aliquota\":22.5,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":4665,\"aliquota\":27.5,\"message\":\"Valor Calculado com Sucesso!\"}];\r",
+							"var data = [{\"salario\":600,\"aliquota\":0,\"message\":\"Não existe Aliquota para o salário informado\"},{\"salario\":1904,\"aliquota\":9.5,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":2827,\"aliquota\":17,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":3752,\"aliquota\":22.5,\"message\":\"Valor Calculado com Sucesso!\"},{\"salario\":4665,\"aliquota\":27.5,\"message\":\"Valor Calculado com Sucesso!\"}];\r",
 							"\r",
 							"\r",
 							"var index = Math.floor((Math.random() * 4));\r",
