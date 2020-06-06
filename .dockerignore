@@ -6,6 +6,6 @@ bin/
 obj/
 out/
 Dockerfile
-*compose.yml
+
 *pipelines.yml
 *.md
