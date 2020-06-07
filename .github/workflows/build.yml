@@ -98,6 +98,8 @@ jobs:
         run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken=${{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
   # Definição do serviço 
   intergratedTestsWithDocker:
+    # Nome do serviço
+    name: Teste integrado com Docker e Newman
     # máquinas onde será executado o build 
     runs-on: ubuntu-latest
     # Descrição de depemdencias que precisam ser instaladas na maquina
