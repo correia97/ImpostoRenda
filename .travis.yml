@@ -1,9 +1,15 @@
+# Definição da linguagem do projeto que será realizado o build
 language: csharp
+# versão do SDK que será utilizado para o build
 dotnet: 2.2.207
+# Informação ser vamos utilizar o monor
 mono: none
+# Nome da solution que será realizado o build
 solution: ImpostoRendaLB3.sln
+# instalação de ferramentas que serão utilizadas
 install:
   - dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool 
+# Definiçã dos comandos que serão executados   
 script:
  - dotnet restore
  - dotnet build

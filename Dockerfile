@@ -48,17 +48,20 @@ RUN dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --no-b
 # Realiza a Analise
 RUN dotnet sonarscanner end /d:sonar.login=$sonarLogin   
 # Cobertura no CodCov
-
+# download da ferramenta do Codecov
 RUN curl -o codecov.sh https://codecov.io/bash
+# Download das variaveis de ambinete
 RUN curl -so codecovenv https://codecov.io/env
+# Aceso a pasta
 RUN chmod +x codecov.sh
+# Aceso a pasta
 RUN chmod +x codecovenv
+# Definição das variáveis
 ENV ci_env=./codecovenv
 # Cobertura no CodCov
 RUN ./codecov.sh -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codecovToken
 # Publica a Aplicação
 RUN dotnet publish -c Release -o out
-
 # Build da imagem
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6-alpine3.9 as API
 # Define a pasta onde vai estar os arquivos

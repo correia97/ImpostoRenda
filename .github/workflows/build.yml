@@ -1,88 +1,126 @@
-name: Git Buil
-
+# Nome da configuração de build
+name: Build no github
+# Definição de onde será execuddo
 on:
+  # Definição de qual evento vai disparar o build
   push:
+    # lista de branch que serão utilizadas
     branches: 
       - master
 
+# definição dos serviços de build que serão executados
 jobs:
+  # Definição do serviço 
   build:
+    # Nome do serviço
+    name: Build no Ubuntu
+    # máquinas onde será executado o serviço
     runs-on: ubuntu-latest
+    # Definição do passos que o serviço deve executar
     steps:
+    # Clone do projeto
     - uses: actions/checkout@v1
+    # Execução de uma linha de comando 
     - name: Restore packge
       run: dotnet restore
+    # Execução de uma linha de comando   
     - name: Build
       run: dotnet build
+    # Execução de uma linha de comando   
     - name: Test
       run: dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    # Execução de uma linha de comando   
     - name: Install ReportGenarator tool
-      run: dotnet tool install --global  dotnet-reportgenerator-globaltool 
+      run: dotnet tool install --global  dotnet-reportgenerator-globaltool
+    # Execução de uma linha de comando    
     - name: Generate Report
       run: reportgenerator "-reports:/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" \
                             "-targetdir:/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/" \
                             "-reporttypes:Html" \
                             "-sourcedirs:/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/"
-
+    # Armazenamento dos arquivos gerados pelo resultado dos testes
     - name: Archive code coverage results
       uses: actions/upload-artifact@v1
       with:
         name: code-coverage-report
         path: /home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/index.html
-
-  sonarCloudTrigger:
+  # Definição do serviço 
+  sonarCloudTrigger:    
+    # Nome do serviço
+    name: Analise no Sonar
+    # Dependencia do Serviço de build
     needs: build
-    name: SonarCloud Trigger
+    # máquinas onde será executado o serviço
     runs-on: ubuntu-latest
+    # Definição do passos que o serviço deve executar
     steps:
+      # Clone do projeto
       - name: Clone Repository
         uses: actions/checkout@master
+      # Configuração do sonar 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
-   
+  # Definição do serviço   
   codeCovTrigger:
-    needs: build
-    name: CodeCov Trigger
+    # Dependencia do Serviço de build
+    needs: build  
+    # Nome do serviço
+    name: Analise do Codcov
+    # máquinas onde será executado o build
     runs-on: ubuntu-latest
+    # Definição do passos que o serviço deve executar
     steps:
+      # Clone do projeto
       - name: Clone Repository
         uses: actions/checkout@master
+      # Execução de uma linha de comando  
       - name: Install CodeCov tool   
-        run: dotnet tool install --global Codecov.Tool  
+        run: dotnet tool install --global Codecov.Tool
+      # Execução de uma linha de comando    
       - name: Upload data
         run: codecov -f "/home/runner/work/ImpostoRendaLB3/ImpostoRendaLB3/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t {{ secrets.CODECOV_TOKEN }}
-
-
-  buildDocker:
-    needs: build
-    name: Docker
+  # Definição do serviço 
+  buildDocker:  
+    # Nome do serviço
+    name: Build da imagem Docker
+    # máquinas onde será executado o build 
     runs-on: ubuntu-latest
+    # Definição do passos que o serviço deve executar
     steps:
+      # Clone do projeto
       - name: Clone Repository
-        uses: actions/checkout@master      
+        uses: actions/checkout@master 
+      # Execução de uma linha de comando         
       - name: Docker build
         run: docker build --build-arg sonarLogin=${{ secrets.SONAR_TOKEN }} --build-arg codecovToken=${{ secrets.CODECOV_TOKEN }} -t imp:v${{ secrets.GITHUB_RUN_ID }} .
-
+  # Definição do serviço 
   intergratedTestsWithDocker:
-    needs: build
+    # máquinas onde será executado o build 
     runs-on: ubuntu-latest
+    # Descrição de depemdencias que precisam ser instaladas na maquina
     strategy:
       matrix:
         node-version: [10.x, 12.x, 13.x, 14.x]
+    # Definição do passos que o serviço deve executar
     steps:
+      # Clone do projeto
       - name: Clone Repository
-        uses: actions/checkout@master  
+        uses: actions/checkout@master 
+      # Execução de uma linha de comando  
       - name: Docker Compose
         run: docker-compose up -d
+      # Execução de uma linha de comando 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      # Execução de uma linha de comando 
       - name: Install newman
         run: npm install -g newman
+      # Execução de uma linha de comando 
       - name: Run Test
-        run: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json    
+        run: newman run ImpostoRenda.postman_collection.json -n 20 -r cli,json --reporter-json-export ./result/result.json    
 

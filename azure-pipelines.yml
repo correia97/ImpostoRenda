@@ -151,4 +151,4 @@ jobs:
       displayName: 'Run Collection'
       inputs:
         script: |
-          newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json                          
+          newman run ImpostoRenda.postman_collection.json -n 20 -r cli,json --reporter-json-export ./result/result.json                          

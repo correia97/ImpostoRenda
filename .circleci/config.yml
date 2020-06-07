@@ -1,41 +1,48 @@
+# versão do arquivo de configuração de build
 version: 2.1
+# Conjunto de Execuções que serão realizadas
 jobs:
+ # Execução de build  
  build:
+   # Definição que será utilizada uma docker para realizar o build
    docker:
+    # Nome da imagem docker que será utilizada
      - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+   # Definição dos passos para a realização do build dentro da imagem  
    steps:
+     # Clone do projeto
      - checkout
-     
+     # Execução de uma linha de comando
      - run:
          name: Restore packages
          command:
            dotnet restore
-     
+    # Execução de uma linha de comando
      - run:
          name: install Tool CodeCov
          command:
            dotnet tool install --tool-path ./ Codecov.Tool    
-     
+      # Execução de uma linha de comando
      - run:
          name: install Tool ReportGenerator
          command:
            dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool       
-     
+      # Execução de uma linha de comando
      - run:
          name: Build App
          command:
            dotnet build
-     
+      # Execução de uma linha de comando
      - run:
          name: Run Test
          command:
            dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
-
+     # Execução de uma linha de comando
      - run:
          name: Publish CodeCov
          command:
            ./codecov -f "/root/project/results/coverage.opencover.xml" -t $codeCovToken
-
+     # Execução de uma linha de comando
      - run:
          name: Generate Report
          command:
@@ -43,83 +50,89 @@ jobs:
                             "-targetdir:/root/project/results/" \
                             "-reporttypes:Html" \
                             "-sourcedirs:/root/project/results/"  
-     
+    # Armazenamento do conteudo da pasta result
      - store_artifacts:
           path: results/
-
+ # Execução de build 
  dockerBuild:
+    # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
     machine:
+      # Nome da maquina que será utilizada
       image: circleci/classic:201808-01 
+    # Definição dos passos para a realização do build dentro da imagem    
     steps:
+      # Clone do projeto 
       - checkout
-
+      # Execução de uma linha de comando
       - run:
           name: docker build
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
-
+ # Execução de build 
  dockerIntergatedtest:
+    # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
     machine:
+      # Nome da maquina que será utilizada
       image: 'ubuntu-1604:201903-01'
+    # Definição dos passos para a realização do build dentro da imagem 
     steps:
-      - checkout       
-      
+      # Clone do projeto 
+      - checkout
+      # Execução de uma linha de comando       
       - run:
           name: Linux version
           command: cat /etc/*release
-
+      # Execução de uma linha de comando 
       - run:
           name: APT-GET Update e upgrade
           command: sudo apt-get update && sudo apt-get upgrade -y  
-
+      # Execução de uma linha de comando 
       - run:
           name: Remove Current Node
           command: sudo apt-get remove nodejs -y 
-
+      # Execução de uma linha de comando 
       - run:
           name: Install curl 
           command: sudo apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates
-
+      # Execução de uma linha de comando 
       - run:
           name: Donwload node
           command: curl -sL https://deb.nodesource.com/setup_10.x | sudo bash
-
-
+      # Execução de uma linha de comando 
       - run:
           name: Install node
           command: sudo apt-get install -y nodejs
-
+      # Execução de uma linha de comando 
       - run:
           name: APT-GET update
           command: sudo apt-get update
-
+      # Execução de uma linha de comando 
       - run:
           name: Update Npm
           command: sudo npm install npm -g
-
+      # Execução de uma linha de comando 
       - run:
           name: install newman
           command: sudo npm install -g newman
-
+      # Execução de uma linha de comando 
       - run:
           name: docker compose
           command: docker-compose up --build -d
+      # Execução de uma linha de comando           
       - run:
           name: Node version
           command: nodejs --version   
+       # Execução de uma linha de comando          
       - run:
           name: Run Tests
-          command: newman run ImpostoRenda.postman_collection.json -n 10 -r cli,json --reporter-json-export ./result/result.json   
-
+          command: newman run ImpostoRenda.postman_collection.json -n 20 -r cli,json --reporter-json-export ./result/result.json   
+      # Armazenamento do conteudo da pasta result
       - store_artifacts:
           path: results/    
-
-orbs:
-  node: 'circleci/node@2.1.1'
-  newman: postman/newman@0.0.2
-
+# Definição dos trabalhos que serção executados
 workflows:
-  version: 2
+  # Nome do trabalho que seá executado
   build_and_test:
+    # definição das Ações que serão executadas
     jobs:
       - build  
       - dockerBuild
