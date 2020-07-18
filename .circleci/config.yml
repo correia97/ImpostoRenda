@@ -3,7 +3,7 @@ version: 2.1
 # Conjunto de Execuções que serão realizadas
 jobs:
  # Execução de build  
- build:
+ buildSemDockerFile:
    # Definição que será utilizada uma docker para realizar o build
    docker:
     # Nome da imagem docker que será utilizada
@@ -54,7 +54,7 @@ jobs:
      - store_artifacts:
           path: results/
  # Execução de build 
- dockerBuild:
+ buildComDockerFile:
     # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
     machine:
       # Nome da maquina que será utilizada
@@ -68,7 +68,7 @@ jobs:
           name: docker build
           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
  # Execução de build 
- dockerIntergatedtest:
+ testeIntegradoComDockerCompose:
     # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
     machine:
       # Nome da maquina que será utilizada
@@ -87,10 +87,6 @@ jobs:
           command: sudo apt-get update && sudo apt-get upgrade -y  
       # Execução de uma linha de comando 
       - run:
-          name: Remove Current Node
-          command: sudo apt-get remove nodejs -y 
-      # Execução de uma linha de comando 
-      - run:
           name: Install curl 
           command: sudo apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates
       # Execução de uma linha de comando 
@@ -101,10 +97,6 @@ jobs:
       - run:
           name: Install node
           command: sudo apt-get install -y nodejs
-      # Execução de uma linha de comando 
-      - run:
-          name: APT-GET update
-          command: sudo apt-get update
       # Execução de uma linha de comando 
       - run:
           name: Update Npm
@@ -134,6 +126,6 @@ workflows:
   build_and_test:
     # definição das Ações que serão executadas
     jobs:
-      - build  
-      - dockerBuild
-      - dockerIntergatedtest
+      - buildSemDockerFile  
+      - buildComDockerFile
+      - testeIntegradoComDockerCompose
