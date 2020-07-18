@@ -72,7 +72,7 @@ jobs:
     # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
     machine:
       # Nome da maquina que será utilizada
-      image: 'ubuntu-1604:201903-01'
+      image: 'ubuntu-1604:202007-01'
     # Definição dos passos para a realização do build dentro da imagem 
     steps:
       # Clone do projeto 
