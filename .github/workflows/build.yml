@@ -20,6 +20,11 @@ jobs:
     steps:
     # Clone do projeto
     - uses: actions/checkout@v1
+    # versão do .net framework
+    - uses: actions/setup-dotnet@v1
+      name: Instalação da versão do framework
+      with:
+        dotnet-version: '2.2.x'
     # Execução de uma linha de comando 
     - name: Restauração dos pacotes
       run: dotnet restore
