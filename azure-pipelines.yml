@@ -8,7 +8,7 @@ trigger:
 
 jobs:
  - job: AzureBuild
-   displayName: Build do Azure      
+   displayName: Build do Azure sem container     
    pool:
       vmImage: 'ubuntu-latest'
    variables:
@@ -16,12 +16,12 @@ jobs:
 
    steps:
    - task: DotNetCoreCLI@2
-     displayName: 'Restore'
+     displayName: 'Restauração de pacotes'
      inputs:
       command: 'restore'
 
    - task: SonarCloudPrepare@1
-     displayName: 'Configure Sonar'
+     displayName: 'Configuração do scanner do Sonar'
      inputs:
        SonarCloud: 'Sonar'
        organization: 'correia97'
@@ -34,57 +34,57 @@ jobs:
             sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/results/coverage.opencover.xml
 
    - task: DotNetCoreCLI@2
-     displayName: 'Build'
+     displayName: 'Build da aplicação'
      inputs:
       command: 'build'
 
    - task: DotNetCoreCLI@2
-     displayName: 'Test'
+     displayName: 'Execução dos Testes de unidade'
      inputs:
       command: 'test'
       arguments: '--no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=\"$(Build.SourcesDirectory)/results/\'
       testRunTitle: 'Tests'
 
    - task: PublishCodeCoverageResults@1
-     displayName: 'Cobertura'
+     displayName: 'Publicação da cobertura de código'
      inputs:
       codeCoverageTool: 'Cobertura'
       summaryFileLocation: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
 
    - task: SonarCloudAnalyze@1
-     displayName: 'Sonar Analyze'
+     displayName: 'Analise do Sonar'
 
    - task: SonarCloudPublish@1
-     displayName: 'Sonar Publish'
+     displayName: 'Publicação dos dados no sonarCloud'
      inputs:
       pollingTimeoutSec: '300'
 
    - task: CmdLine@2
-     displayName: Install CodeCov
+     displayName: Instalação do scanner Codecov
      inputs:
       script: 'dotnet tool install --tool-path ./ Codecov.Tool'
 
    - task: CmdLine@2
-     displayName: Publish CodeCov
+     displayName: Pulicação dos dados no Codecov
      inputs:
       script: './codecov -f "$(Build.SourcesDirectory)/results/coverage.opencover.xml" -t $(codecovToken)'
 
    - task: reportgenerator@4
-     displayName: Report
+     displayName: Geração do relatório de cobertura
      inputs:
       reports: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
       targetdir: '$(Build.SourcesDirectory)/results/'
       sourcedirs: '$(Build.SourcesDirectory)/results/'
 
    - task: PublishTestResults@2
-     displayName: Publish Test Result
+     displayName: Publicação do resultado do teste no azure devops
      inputs:
       testResultsFormat: 'XUnit'
       testResultsFiles: '**/*.xml'
       searchFolder: '$(Build.SourcesDirectory)/results/'
 
    - task: DotNetCoreCLI@2
-     displayName: 'Publish API'
+     displayName: 'Publicação do projeto API'
      inputs:
       command: 'publish'
       publishWebProjects: false
@@ -93,7 +93,7 @@ jobs:
       workingDirectory: '$(Build.SourcesDirectory)'
 
    - task: DotNetCoreCLI@2
-     displayName: 'Publish WEB'
+     displayName: 'Publicação do projeto WEB'
      inputs:
       command: 'publish'
       publishWebProjects: true
@@ -102,7 +102,7 @@ jobs:
       workingDirectory: '$(Build.SourcesDirectory)'
 
    - task: PublishBuildArtifacts@1
-     displayName: 'Publish Artifacst'
+     displayName: 'Geração da pasta para o CD do azure devops'
      inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'drop'
@@ -115,40 +115,41 @@ jobs:
       vmImage: 'ubuntu-latest'
    steps:
    - task: DockerInstaller@0
-     displayName: 'Install Docker'
+     displayName: 'Instalação do Docker'
      inputs:
       dockerVersion: '17.09.0-ce'
+
    - task: CmdLine@2
-     displayName: 'Run Docker build'
+     displayName: 'Build da Imagem docker com Analise do sonar e codecov'
      inputs:
         script: |
           docker build --build-arg sonarLogin=$(sonarToken) --build-arg codecovToken=$(codecovToken) .
 
 
  - job: IntegratedTest
-   displayName: Docker Build
+   displayName: Execução de Teste Integrado no Docker
    pool:
       vmImage: 'ubuntu-latest'
    steps:
     - task: DockerInstaller@0
-      displayName: 'Install Docker'
+      displayName: 'Instalação do Docker'
       inputs:
        dockerVersion: '17.09.0-ce'
 
     - task: CmdLine@2    
-      displayName: 'Install newman'
+      displayName: 'Instalação do newman'
       inputs:
         script: |
           sudo npm install -g newman 
 
     - task: CmdLine@2
-      displayName: 'Docker Compose'
+      displayName: 'Execução do projto via compose'
       inputs:
         script: |
           docker-compose up --build -d
 
     - task: CmdLine@2
-      displayName: 'Run Collection'
+      displayName: 'Execução dos testes'
       inputs:
         script: |
           newman run ImpostoRenda.postman_collection.json -n 20 -r cli,json --reporter-json-export ./result/result.json                          
