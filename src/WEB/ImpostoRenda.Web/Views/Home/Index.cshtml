@@ -1,0 +1,23 @@
+﻿@model ImpostoRenda.Web.Models.ImpostoRequest
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+<div class="text-center">
+    @using (@Html.BeginForm(FormMethod.Post))
+    {
+
+        <label>Informe o salário:</label><br />
+        <input type="text" asp-for="Salario" /><br />
+        <button>Calcular</button>
+    }
+
+    @if (ViewBag.Result != null)
+    {
+        <label>Salário informado: @ViewBag.Result.salario</label><br />
+        <label>Aliquota: @ViewBag.Result.aliquota</label><br />
+        <label>Valor do desconto @ViewBag.Result.valorDesconto</label><br />
+        <label>@ViewBag.Result.message</label>
+    }
+</div>

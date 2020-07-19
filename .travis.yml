@@ -5,7 +5,7 @@ dotnet: 2.2.207
 # Informação ser vamos utilizar o monor
 mono: none
 # Nome da solution que será realizado o build
-solution: ImpostoRendaLB3.sln
+solution: ImpostoRenda.sln
 # instalação de ferramentas que serão utilizadas
 install:
   - dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool 
@@ -13,8 +13,8 @@ install:
 script:
  - dotnet restore
  - dotnet build
- - dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="/home/travis/build/correia97/ImpostoRendaLB3/results/"
- - ./reportgenerator "-reports:/home/travis/build/correia97/ImpostoRendaLB3/results/coverage.opencover.xml" \
-                            "-targetdir:/home/travis/build/correia97/ImpostoRendaLB3/results/" \
+ - dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="/home/travis/build/correia97/ImpostoRenda/results/"
+ - ./reportgenerator "-reports:/home/travis/build/correia97/ImpostoRenda/results/coverage.opencover.xml" \
+                            "-targetdir:/home/travis/build/correia97/ImpostoRenda/results/" \
                             "-reporttypes:Html" \
-                            "-sourcedirs:/home/travis/build/correia97/ImpostoRendaLB3/results/"  
+                            "-sourcedirs:/home/travis/build/correia97/ImpostoRenda/results/"  

@@ -10,10 +10,10 @@ ARG codecovToken
 # Executa o restore
 RUN dotnet restore
 # Start do scanner
-RUN dotnet sonarscanner begin /k:"correia97_ImpostoRendaLB3" \
+RUN dotnet sonarscanner begin /k:"correia97_ImpostoRenda" \
                               /o:"correia97" /d:sonar.host.url="https://sonarcloud.io" \
                               /d:sonar.login=$sonarLogin \
-                              /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" \
+                              /d:sonar.cs.opencover.reportsPaths="/app/Tests/ImpostoRenda.UnitTests/coverage.opencover.xml" \
                               /d:sonar.exclusions=**/*.js,**/*.css,**/obj/**,**/*.dll,**/*.html,**/*.cshtml,*-project.properties
 
 #Faz o build
@@ -34,7 +34,7 @@ RUN chmod +x codecovenv
 # Definição das variáveis
 ENV ci_env=./codecovenv
 # Cobertura no CodCov
-RUN ./codecov.sh -f "/app/Tests/ImpostoRendaLB3.UnitTests/coverage.opencover.xml" -t $codecovToken
+RUN ./codecov.sh -f "/app/Tests/ImpostoRenda.UnitTests/coverage.opencover.xml" -t $codecovToken
 # Publica a Aplicação
 RUN dotnet publish -c Release -o out
 # Build da imagem
@@ -42,8 +42,8 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6-alpine3.9 as API
 # Define a pasta onde vai estar os arquivos
 WORKDIR /app
 # Copia os arquivos publicados do container de build para o container final
-COPY --from=build-env /app/src/API/ImpostoRendaLB3.API/out .
+COPY --from=build-env /app/src/API/ImpostoRenda.API/out .
 # Variavél de ambiente que define onde a aplicação está rodando
 ENV ASPNETCORE_ENVIRONMENT=docker
 # Define qual o executavel do container
-ENTRYPOINT [ "dotnet","ImpostoRendaLB3.API.dll"  ]
+ENTRYPOINT [ "dotnet","ImpostoRenda.API.dll"  ]

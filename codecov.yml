@@ -13,7 +13,7 @@ comment:
 flags:
   production:
     paths:
-      - src/API/ImpostoRendaLB3.API/
+      - src/API/ImpostoRenda.API/
   test:
     paths:
-      - Tests/ImpostoRendaLB3.UnitTests/
+      - Tests/ImpostoRenda.UnitTests/

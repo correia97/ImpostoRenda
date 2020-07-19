@@ -6,12 +6,12 @@ COPY ./Data ./Data
 COPY ./CrossCutting ./CrossCutting
 COPY ./Domain ./Domain
 
-RUN dotnet restore ./API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj
-RUN dotnet publish ./API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj -c Release -o ./out
+RUN dotnet restore ./API/ImpostoRenda.API/ImpostoRenda.API.csproj
+RUN dotnet publish ./API/ImpostoRenda.API/ImpostoRenda.API.csproj -c Release -o ./out
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2.6-alpine3.9
 WORKDIR /app
-COPY --from=build-env /app/API/ImpostoRendaLB3.API/out/ .
+COPY --from=build-env /app/API/ImpostoRenda.API/out/ .
 
 ENV ASPNETCORE_ENVIRONMENT=docker
-ENTRYPOINT [ "dotnet","ImpostoRendaLB3.API.dll"]
+ENTRYPOINT [ "dotnet","ImpostoRenda.API.dll"]

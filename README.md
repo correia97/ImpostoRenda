@@ -42,7 +42,7 @@ docker run -d -p 27017:27017 --name mongodev -v vMongo:/data/db mongo:4.1.13
 No caso onde o container não vai ser utilizado no docker ou vai ser utilizado em outra porta é necessário colocar os dados corretos no arquivo
 
 ```bash
-src\\API\\ImpostoRendaLB3.API\\appsettings.Development.json
+src\\API\\ImpostoRenda.API\\appsettings.Development.json
 {
   "Logging": {
     "IncludeScopes": false,
@@ -70,13 +70,13 @@ No diretorio raiz onde foi clonado o projeto abrir o CMD ou PowerShell e executa
 Para executar a API
 
 ```bash
- dotnet run -p src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj
+ dotnet run -p src/API/ImpostoRenda.API/ImpostoRenda.API.csproj
 ```
 
 Verfificar qual a porta que a API está sendo executada e configurar o endereço correto no arquivo
 
 ```bash
-src\\WEB\\ImpostoRendaLB3.Web\\appsettings.Development.json
+src\\WEB\\ImpostoRenda.Web\\appsettings.Development.json
 
 {
   "Logging": {
@@ -94,7 +94,7 @@ src\\WEB\\ImpostoRendaLB3.Web\\appsettings.Development.json
 Abrir uma nova janela do CMD ou powershell e executar o projeto MVC
 
 ```bash
-dotnet run -p src/WEB/ImpostoRendaLB3.WEB/ImpostoRendaLB3.WEB.csproj
+dotnet run -p src/WEB/ImpostoRenda.WEB/ImpostoRenda.WEB.csproj
 ```
 
 #### Via Docker
@@ -128,7 +128,7 @@ obs.: Será gerado uma pasta result com o arquivo result.json do teste
 
 Conforme mencionado na parte da execução via linha de comando o projeto depende de uma banco MongoDb que está sendo utilizado no Container Docker seguir os passos descritos para criação do container ou alterar a configuração para um banco existente.
 
-- Abrir a solução ImpostoRendaLB3.sln
+- Abrir a solução ImpostoRenda.sln
 - Clicar com o botão direito sobre a solução -> Properties
 - Common Properties -> Startup Project
 - Selecionar a opção Multiple startup projects
