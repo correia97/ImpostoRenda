@@ -6,7 +6,6 @@ on:
   push:
     # lista de branch que serão utilizadas
     branches: 
-      - master
       - framework31
 
 # definição dos serviços de build que serão executados
