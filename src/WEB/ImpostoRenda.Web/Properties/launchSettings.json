@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:55200",
-      "sslPort": 44340
+      "applicationUrl": "http://localhost:56705",
+      "sslPort": 44392
     }
   },
   "profiles": {
@@ -25,8 +25,9 @@
     },
     "Docker": {
       "commandName": "IISExpress",
+      "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "docker"
+        "ASPNETCORE_ENVIRONMENT": "Docker"
       }
     }
   }
