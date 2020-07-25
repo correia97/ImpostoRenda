@@ -1,4 +1,4 @@
-FROM correia97/netcoresdksonar:3.1-alpine3.11 as build-env
+FROM correia97/netcoresdksonar:3.1-alpine3.12 as build-env
 
 RUN apk add --update curl bash && \
     rm -rf /var/cache/apk/*
