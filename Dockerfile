@@ -45,7 +45,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine3.11 as API
 # Define a pasta onde vai estar os arquivos
 WORKDIR /app
 # Copia os arquivos publicados do container de build para o container final
-COPY --from=build-env /app/src/out .
+COPY --from=build-env /app/out .
 # Variavél de ambiente que define onde a aplicação está rodando
 ENV ASPNETCORE_ENVIRONMENT=docker
 # Define qual o executavel do container
