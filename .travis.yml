@@ -1,7 +1,7 @@
 # Definição da linguagem do projeto que será realizado o build
 language: csharp
 # versão do SDK que será utilizado para o build
-dotnet: 2.2.207
+dotnet: 3.1.302
 # Informação ser vamos utilizar o monor
 mono: none
 # Nome da solution que será realizado o build
