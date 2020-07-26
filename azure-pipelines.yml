@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- framework31
 
 jobs:
  - job: AzureBuild
@@ -15,13 +15,6 @@ jobs:
     buildConfiguration: 'Release'
 
    steps:
-   - task: UseDotNet@2
-     displayName: 'Instalação do framewok 2.2'
-     inputs:
-      version: 2.2.x
-      performMultiLevelLookup: true
-      includePreviewVersions: true
-
    - task: DotNetCoreCLI@2
      displayName: 'Restauração de pacotes'
      inputs:

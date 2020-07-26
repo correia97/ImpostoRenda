@@ -7,7 +7,7 @@ jobs:
    # Definição que será utilizada uma docker para realizar o build
    docker:
     # Nome da imagem docker que será utilizada
-     - image: mcr.microsoft.com/dotnet/core/sdk:2.2
+     - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.11
    # Definição dos passos para a realização do build dentro da imagem  
    steps:
      # Clone do projeto

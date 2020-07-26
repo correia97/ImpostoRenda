@@ -1,3 +1,5 @@
+using System;
+
 namespace ImpostoRenda.Web.Models
 {
     public class ErrorViewModel

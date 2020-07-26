@@ -1,31 +1,37 @@
 ﻿using ImpostoRenda.Web.Interfaces;
 using ImpostoRenda.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace ImpostoRenda.Web.Controllers
 {
+
     public class HomeController : Controller
     {
-        private readonly IImpostoService impostoService;
-        public HomeController(IImpostoService impostoService)
+        private readonly IImpostoService _impostoService;
+
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(IImpostoService impostoService, ILogger<HomeController> logger)
         {
-            this.impostoService = impostoService;
+            _logger = logger;
+            _impostoService = impostoService;
         }
+
         public IActionResult Index()
         {
-            return View(new ImpostoRequest());
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Index(ImpostoRequest impostoRequest)
         {
 
-            var result = await impostoService.CalcImpostoAsync(impostoRequest);
+            var result = await _impostoService.CalcImpostoAsync(impostoRequest);
             ViewBag.Result = result;
             return View(impostoRequest);
         }
-
         public IActionResult Privacy()
         {
             return View();
