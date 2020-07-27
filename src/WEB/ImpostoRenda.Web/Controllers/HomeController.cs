@@ -22,16 +22,34 @@ namespace ImpostoRenda.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, "Get Index");
+                return RedirectToAction(nameof(Error));
+            }
         }
+
         [HttpPost]
         public async Task<IActionResult> Index(ImpostoRequest impostoRequest)
         {
+            try
+            {
 
-            var result = await _impostoService.CalcImpostoAsync(impostoRequest);
-            ViewBag.Result = result;
-            return View(impostoRequest);
+                var result = await _impostoService.CalcImpostoAsync(impostoRequest);
+                ViewBag.Result = result;
+                return View(impostoRequest);
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, "Post Index");
+                return RedirectToAction(nameof(Error));
+            }
         }
+
         public IActionResult Privacy()
         {
             return View();

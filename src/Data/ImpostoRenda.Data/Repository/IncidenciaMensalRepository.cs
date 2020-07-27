@@ -22,8 +22,6 @@ namespace ImpostoRenda.Data.Repository
             Expression<Func<IncidenciaMensal, bool>> predicate = (x) => salario >= x.ValorInicial && salario <= x.ValorFinal;
             var filter = Builders<IncidenciaMensal>.Filter.Where(predicate);
 
-            var result1 = await DbContext.GetCollection<IncidenciaMensal>(collectionName).Find(filter).ToListAsync();
-
             var result = await DbContext.GetCollection<IncidenciaMensal>(collectionName).Find(x => true).ToListAsync();
             var incidencia = result.FirstOrDefault(x => salario >= x.ValorInicial && salario <= x.ValorFinal);
             if (incidencia != null)

@@ -61,8 +61,7 @@ namespace ImpostoRenda.Data.Repository
         public async Task Update(T entity)
         {
             var filter = Builders<T>.Filter.Eq(x => x.Id, entity.Id);
-            await DbContext.GetCollection<T>(collectionName)
-                                         .ReplaceOneAsync(filter, entity, new UpdateOptions { IsUpsert = true });
+            await DbContext.GetCollection<T>(collectionName).FindOneAndReplaceAsync(filter, entity);
         }
     }
 }
