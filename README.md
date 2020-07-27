@@ -1,6 +1,8 @@
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=correia97_ImpostoRendaLB3&metric=alert_status)](https://sonarcloud.io/dashboard?id=correia97_ImpostoRendaLB3) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=correia97_ImpostoRendaLB3&metric=coverage)](https://sonarcloud.io/dashboard?id=correia97_ImpostoRendaLB3) 
-[![Build Status](https://dev.azure.com/pauloc/ImpostoRenda/_apis/build/status/Build%20Test?branchName=master)](https://dev.azure.com/pauloc/ImpostoRenda/_build/latest?definitionId=1&branchName=master)
-[![CircleCI](https://circleci.com/gh/correia97/ImpostoRendaLB3.svg?style=svg)](https://circleci.com/gh/correia97/ImpostoRendaLB3) [![codecov](https://codecov.io/gh/correia97/ImpostoRendaLB3/branch/master/graph/badge.svg)](https://codecov.io/gh/correia97/ImpostoRendaLB3) ![Git Buil](https://github.com/correia97/ImpostoRendaLB3/workflows/Git%20Buil/badge.svg) [![Build Status](https://travis-ci.org/correia97/ImpostoRendaLB3.svg?branch=master)](https://travis-ci.org/correia97/ImpostoRendaLB3)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/69a4b83935cd46ee9a9dd69f8046d4ef)](https://app.codacy.com/manual/correia97/ImpostoRenda?utm_source=github.com&utm_medium=referral&utm_content=correia97/ImpostoRenda&utm_campaign=Badge_Grade_Dashboard)
+[![Build Status](https://dev.azure.com/pauloc/ImpostoRenda/_apis/build/status/Build%20Test?branchName=master)](https://dev.azure.com/pauloc/ImpostoRenda/_build/latest?definitionId=1&branchName=master) [![CircleCI](https://circleci.com/gh/correia97/ImpostoRenda.svg?style=shield)](https://circleci.com/gh/correia97/ImpostoRendaLB3) [![Git Buil](https://github.com/correia97/ImpostoRendaLB3/workflows/Git%20Buil/badge.svg) ](https://github.com/correia97/ImpostoRendaLB3/workflows) [![Build Status](https://travis-ci.org/correia97/ImpostoRendaLB3.svg?branch=master)](https://travis-ci.org/correia97/ImpostoRendaLB3) 
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6de58fc4a52044dea85fc3c26805e7f8)](https://www.codacy.com/manual/correia97/ImpostoRendaLB3?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=correia97/ImpostoRendaLB3&amp;utm_campaign=Badge_Grade) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=correia97_ImpostoRendaLB3&metric=alert_status)](https://sonarcloud.io/dashboard?id=correia97_ImpostoRendaLB3) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=correia97_ImpostoRendaLB3&metric=coverage)](https://sonarcloud.io/dashboard?id=correia97_ImpostoRendaLB3)
+[![codecov](https://codecov.io/gh/correia97/ImpostoRendaLB3/branch/master/graph/badge.svg)](https://codecov.io/gh/correia97/ImpostoRendaLB3)
 
 # ImpostoRenda
 
@@ -41,7 +43,7 @@ docker run -d -p 27017:27017 --name mongodev -v vMongo:/data/db mongo:4.1.13
 No caso onde o container não vai ser utilizado no docker ou vai ser utilizado em outra porta é necessário colocar os dados corretos no arquivo
 
 ```bash
-src\\API\\ImpostoRendaLB3.API\\appsettings.Development.json
+src\\API\\ImpostoRenda.API\\appsettings.Development.json
 {
   "Logging": {
     "IncludeScopes": false,
@@ -69,13 +71,13 @@ No diretorio raiz onde foi clonado o projeto abrir o CMD ou PowerShell e executa
 Para executar a API
 
 ```bash
- dotnet run -p src/API/ImpostoRendaLB3.API/ImpostoRendaLB3.API.csproj
+ dotnet run -p src/API/ImpostoRenda.API/ImpostoRenda.API.csproj
 ```
 
 Verfificar qual a porta que a API está sendo executada e configurar o endereço correto no arquivo
 
 ```bash
-src\\WEB\\ImpostoRendaLB3.Web\\appsettings.Development.json
+src\\WEB\\ImpostoRenda.Web\\appsettings.Development.json
 
 {
   "Logging": {
@@ -93,7 +95,7 @@ src\\WEB\\ImpostoRendaLB3.Web\\appsettings.Development.json
 Abrir uma nova janela do CMD ou powershell e executar o projeto MVC
 
 ```bash
-dotnet run -p src/WEB/ImpostoRendaLB3.WEB/ImpostoRendaLB3.WEB.csproj
+dotnet run -p src/WEB/ImpostoRenda.WEB/ImpostoRenda.WEB.csproj
 ```
 
 #### Via Docker
@@ -127,7 +129,7 @@ obs.: Será gerado uma pasta result com o arquivo result.json do teste
 
 Conforme mencionado na parte da execução via linha de comando o projeto depende de uma banco MongoDb que está sendo utilizado no Container Docker seguir os passos descritos para criação do container ou alterar a configuração para um banco existente.
 
-- Abrir a solução ImpostoRendaLB3.sln
+- Abrir a solução ImpostoRenda.sln
 - Clicar com o botão direito sobre a solução -> Properties
 - Common Properties -> Startup Project
 - Selecionar a opção Multiple startup projects
