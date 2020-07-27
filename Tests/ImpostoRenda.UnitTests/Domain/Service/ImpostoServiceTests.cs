@@ -45,6 +45,7 @@ namespace ImpostoRenda.UnitTests.Domain.Service
             var result = await impostoService.CalcularDesconto(salario);
             result.ValorDesconto.Should().Be(valorEsperado);
         }
+
         [Fact]
         public void CalcularDescontoDeveChamarRepositoty()
         {

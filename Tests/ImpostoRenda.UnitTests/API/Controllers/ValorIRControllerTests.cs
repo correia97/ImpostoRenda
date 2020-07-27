@@ -37,6 +37,5 @@ namespace ImpostoRenda.UnitTests.API.Controllers
             var result = await controller.Post(null);
             result.Should().BeOfType<BadRequestObjectResult>();
         }
-
     }
 }

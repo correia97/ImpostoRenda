@@ -10,7 +10,6 @@ namespace ImpostoRenda.API.Controllers
     [ApiController]
     public class ValorIRController : ControllerBase
     {
-
         private readonly IImpostoService _impostoService;
         public ValorIRController(IImpostoService impostoService)
         {

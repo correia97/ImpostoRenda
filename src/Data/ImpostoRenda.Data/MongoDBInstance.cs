@@ -17,8 +17,6 @@ namespace ImpostoRenda.Data
             db = client.GetDatabase(Base);
         }
 
- 
-
         public IMongoDatabase ReturnDB()
         {
             return db;
