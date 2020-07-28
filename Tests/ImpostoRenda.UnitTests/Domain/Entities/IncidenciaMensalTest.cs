@@ -2,18 +2,12 @@
 using ImpostoRenda.Domain.Entities;
 using ImpostoRenda.Domain.Interfaces.Entities;
 using Moq;
-using Moq.AutoMock;
 using Xunit;
 
 namespace ImpostoRenda.UnitTests.Domain.Entities
 {
     public class IncidenciaMensalTest
     {
-        private AutoMocker autoMocker;
-        public IncidenciaMensalTest()
-        {
-            autoMocker = new AutoMocker();
-        }
 
         [Fact]
         public void IncidenciaMensal_ChamarcalCalcularDescontoDevolveUmValor()
@@ -26,7 +20,6 @@ namespace ImpostoRenda.UnitTests.Domain.Entities
             result.Should().Be(100);
         }
 
-
         [Fact]
         public void IncidenciaMensal_MaiorQueZeoQuandoSalarioInformado()
         {
@@ -34,7 +27,6 @@ namespace ImpostoRenda.UnitTests.Domain.Entities
             var valorFinal = 2500M;
             var aliquota = 10M;
             var deduzir = 10;
-
 
             var inci = new IncidenciaMensal(valorIncial, valorFinal, aliquota, deduzir);
 
