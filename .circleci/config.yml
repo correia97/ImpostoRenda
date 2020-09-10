@@ -47,12 +47,12 @@ jobs:
          name: Generate Report
          command:
            ./reportgenerator "-reports:/root/project/results/coverage.opencover.xml" \
-                            "-targetdir:/root/project/results/" \
+                            "-targetdir:/root/project/results/report/" \
                             "-reporttypes:Html" \
                             "-sourcedirs:/root/project/results/"  
     # Armazenamento do conteudo da pasta result
      - store_artifacts:
-          path: results/
+          path: results/report/
  # Execução de build 
  buildComDockerFile:
     # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
