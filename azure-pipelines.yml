@@ -73,7 +73,7 @@ jobs:
      displayName: Geração do relatório de cobertura
      inputs:
       reports: '$(Build.SourcesDirectory)/results/coverage.opencover.xml'
-      targetdir: '$(Build.SourcesDirectory)/results/'
+      targetdir: '$(Build.SourcesDirectory)/results/report/'
       sourcedirs: '$(Build.SourcesDirectory)/results/'
 
    - task: PublishTestResults@2
@@ -81,7 +81,7 @@ jobs:
      inputs:
       testResultsFormat: 'XUnit'
       testResultsFiles: '**/*.xml'
-      searchFolder: '$(Build.SourcesDirectory)/results/'
+      searchFolder: '$(Build.SourcesDirectory)/results/report/'
 
    - task: DotNetCoreCLI@2
      displayName: 'Publicação do projeto API'
