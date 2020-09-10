@@ -8,3 +8,6 @@ build:
   verbosity: minimal
 test_script:
    - dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
+   - ls -l
+artifacts:
+ - path: results/  
