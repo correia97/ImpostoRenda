@@ -2,8 +2,27 @@
 version: 2.1
 # Conjunto de Execuções que serão realizadas
 jobs:
- # Execução de build  
  buildSemDockerFile:
+   # Definição que será utilizada uma docker para realizar o build
+   docker:
+    # Nome da imagem docker que será utilizada
+     - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.11
+   # Definição dos passos para a realização do build dentro da imagem  
+   steps:
+     # Clone do projeto
+     - checkout
+     # Execução de uma linha de comando
+     - run:
+         name: Restore packages
+         command:
+           dotnet restore       
+      # Execução de uma linha de comando
+     - run:
+         name: Build App
+         command:
+           dotnet build -c Release
+ # Execução de build  
+ test:
    # Definição que será utilizada uma docker para realizar o build
    docker:
     # Nome da imagem docker que será utilizada
@@ -36,7 +55,7 @@ jobs:
      - run:
          name: Run Test
          command:
-           dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
+           dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
      # Execução de uma linha de comando
      - run:
          name: Publish CodeCov
@@ -126,6 +145,9 @@ workflows:
   build_and_test:
     # definição das Ações que serão executadas
     jobs:
-      - buildSemDockerFile  
+      - test 
+      - buildSemDockerFile:
+              requires:
+                    - test 
       - buildComDockerFile
       - testeIntegradoComDockerCompose
