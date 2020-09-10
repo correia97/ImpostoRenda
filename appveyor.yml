@@ -1,0 +1,10 @@
+version: 1.0.{build}
+image:
+  - Ubuntu
+before_build:
+- dotnet restore  
+build:
+  project: ImpostoRenda.sln
+  verbosity: minimal
+test_script:
+   - dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
