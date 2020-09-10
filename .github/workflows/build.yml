@@ -43,7 +43,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: code-coverage-report
-        path: /home/runner/work/ImpostoRenda/ImpostoRenda/Tests/ImpostoRenda.UnitTests/report/*.*
+        path: /home/runner/work/ImpostoRenda/ImpostoRenda/Tests/ImpostoRenda.UnitTests/report/
   # Definição do serviço 
   sonarCloudTrigger:    
     # Nome do serviço
