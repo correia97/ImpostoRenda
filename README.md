@@ -153,6 +153,24 @@ azure-pipelines.yml
 .github/workflows/build.yml
 ```
 
+#### Pipeline no Travis
+
+```bash
+.travis.yml
+```
+
+#### Pipeline no Codacy
+
+```bash
+.codacy.yml
+```
+
+#### Pipeline no AppVeyor
+
+```bash
+appveyor.yml
+```
+
 ### Referências para configuração do Docker e das pipelines
 
 [Renato Groffe](https://github.com/renatogroffe)
@@ -164,3 +182,9 @@ azure-pipelines.yml
 [Circleci Docs](https://circleci.com/docs/)
 
 [CodeCov Docs](https://docs.codecov.io/docs)
+
+[AppVeyor](https://www.appveyor.com/docs/appveyor-yml/)
+
+[Travis](https://docs.travis-ci.com/user/tutorial/#to-get-started-with-travis-ci-using-github)
+
+[Codacy](https://docs.codacy.com/getting-started/getting-started-with-codacy/)
