@@ -1,0 +1,8 @@
+engines:
+  cppcheck:
+    enabled: true
+    language: csharp
+languages:
+  csharp:
+exclude_paths:
+ - '.src/WEB/ImpostoRenda.WEB/wwwroot/lib/**'
