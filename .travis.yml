@@ -15,6 +15,6 @@ script:
  - dotnet build
  - dotnet test --no-build /p:CollectCoverage=true  /p:CoverletOutputFormat="opencover" /p:CoverletOutput="/home/travis/build/correia97/ImpostoRenda/results/"
  - ./reportgenerator "-reports:/home/travis/build/correia97/ImpostoRenda/results/coverage.opencover.xml" \
-                            "-targetdir:/home/travis/build/correia97/ImpostoRenda/results/" \
+                            "-targetdir:/home/travis/build/correia97/ImpostoRenda/results/report/" \
                             "-reporttypes:Html" \
                             "-sourcedirs:/home/travis/build/correia97/ImpostoRenda/results/"  
