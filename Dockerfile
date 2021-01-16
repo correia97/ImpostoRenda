@@ -1,3 +1,9 @@
+# Imagem final
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine3.11 as base
+# Define a pasta onde vai estar os arquivos
+WORKDIR /app
+
+# Imagem base para o build
 FROM correia97/netcoresdksonar:3.1-alpine3.12 as build-env
 
 RUN apk add --update curl bash && \
@@ -40,10 +46,8 @@ ENV ci_env=./codecovenv
 RUN ./codecov.sh -f "/app/Tests/ImpostoRenda.UnitTests/coverage.opencover.xml" -t $codecovToken
 # Publica a Aplicação
 RUN dotnet publish -c Release -o out
-# Build da imagem
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine3.11 as API
-# Define a pasta onde vai estar os arquivos
-WORKDIR /app
+
+FROM base as API
 # Copia os arquivos publicados do container de build para o container final
 COPY --from=build-env /app/out .
 # Variavél de ambiente que define onde a aplicação está rodando
