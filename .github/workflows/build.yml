@@ -54,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     # Definição do passos que o serviço deve executar
     steps:
+      - name: token
+        run: echo  ${{ secrets.GITHUB_TOKEN }}
       # Clone do projeto
       - name: Clone Repositorio
         uses: actions/checkout@master
