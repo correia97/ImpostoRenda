@@ -1,153 +1,153 @@
-# versão do arquivo de configuração de build
-version: 2.1
-# Conjunto de Execuções que serão realizadas
-jobs:
- buildSemDockerFile:
-   # Definição que será utilizada uma docker para realizar o build
-   docker:
-    # Nome da imagem docker que será utilizada
-     - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.11
-   # Definição dos passos para a realização do build dentro da imagem  
-   steps:
-     # Clone do projeto
-     - checkout
-     # Execução de uma linha de comando
-     - run:
-         name: Restore packages
-         command:
-           dotnet restore       
-      # Execução de uma linha de comando
-     - run:
-         name: Build App
-         command:
-           dotnet build -c Release
- # Execução de build  
- test:
-   # Definição que será utilizada uma docker para realizar o build
-   docker:
-    # Nome da imagem docker que será utilizada
-     - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.11
-   # Definição dos passos para a realização do build dentro da imagem  
-   steps:
-     # Clone do projeto
-     - checkout
-     # Execução de uma linha de comando
-     - run:
-         name: Restore packages
-         command:
-           dotnet restore
-    # Execução de uma linha de comando
-     - run:
-         name: install Tool CodeCov
-         command:
-           dotnet tool install --tool-path ./ Codecov.Tool    
-      # Execução de uma linha de comando
-     - run:
-         name: install Tool ReportGenerator
-         command:
-           dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool       
-      # Execução de uma linha de comando
-     - run:
-         name: Build App
-         command:
-           dotnet build
-      # Execução de uma linha de comando
-     - run:
-         name: Run Test
-         command:
-           dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
-     # Execução de uma linha de comando
-     - run:
-         name: Publish CodeCov
-         command:
-           ./codecov -f "/root/project/results/coverage.opencover.xml" -t $codeCovToken
-     # Execução de uma linha de comando
-     - run:
-         name: Generate Report
-         command:
-           ./reportgenerator "-reports:/root/project/results/coverage.opencover.xml" \
-                            "-targetdir:/root/project/results/report/" \
-                            "-reporttypes:Html" \
-                            "-sourcedirs:/root/project/results/"  
-    # Armazenamento do conteudo da pasta result
-     - store_artifacts:
-          path: results/report/
- # Execução de build 
- buildComDockerFile:
-    # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
-    machine:
-      # Nome da maquina que será utilizada
-      image: circleci/classic:201808-01 
-    # Definição dos passos para a realização do build dentro da imagem    
+ # versão do arquivo de configuração de build
+ version: 2.1
+ # Conjunto de Execuções que serão realizadas
+ jobs:
+  buildSemDockerFile:
+    # Definição que será utilizada uma docker para realizar o build
+    docker:
+     # Nome da imagem docker que será utilizada
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.11
+    # Definição dos passos para a realização do build dentro da imagem  
     steps:
-      # Clone do projeto 
+      # Clone do projeto
       - checkout
       # Execução de uma linha de comando
       - run:
-          name: docker build
-          command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
- # Execução de build 
- testeIntegradoComDockerCompose:
-    # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
-    machine:
-      # Nome da maquina que será utilizada
-      image: 'ubuntu-1604:202007-01'
-    # Definição dos passos para a realização do build dentro da imagem 
+          name: Restore packages
+          command:
+            dotnet restore       
+       # Execução de uma linha de comando
+      - run:
+          name: Build App
+          command:
+            dotnet build -c Release
+  # Execução de build  
+  test:
+    # Definição que será utilizada uma docker para realizar o build
+    docker:
+     # Nome da imagem docker que será utilizada
+      - image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine3.11
+    # Definição dos passos para a realização do build dentro da imagem  
     steps:
-      # Clone do projeto 
+      # Clone do projeto
       - checkout
-      # Execução de uma linha de comando       
+      # Execução de uma linha de comando
       - run:
-          name: Linux version
-          command: cat /etc/*release
-      # Execução de uma linha de comando 
+          name: Restore packages
+          command:
+            dotnet restore
+     # Execução de uma linha de comando
       - run:
-          name: APT-GET Update e upgrade
-          command: sudo apt-get update && sudo apt-get upgrade -y  
-      # Execução de uma linha de comando 
+          name: install Tool CodeCov
+          command:
+            dotnet tool install --tool-path ./ Codecov.Tool    
+       # Execução de uma linha de comando
       - run:
-          name: Install curl 
-          command: sudo apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates
-      # Execução de uma linha de comando 
+          name: install Tool ReportGenerator
+          command:
+            dotnet tool install --tool-path ./ dotnet-reportgenerator-globaltool       
+       # Execução de uma linha de comando
       - run:
-          name: Donwload node
-          command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-      # Execução de uma linha de comando 
+          name: Build App
+          command:
+            dotnet build
+       # Execução de uma linha de comando
       - run:
-          name: Install node
-          command: sudo apt-get install -y nodejs
-      # Execução de uma linha de comando 
+          name: Run Test
+          command:
+            dotnet test --no-build /p:CollectCoverage=true /p:CoverletOutputFormat="opencover" /p:CoverletOutput="./../../results/"
+      # Execução de uma linha de comando
       - run:
-          name: Update Npm
-          command: sudo npm install npm -g
-      # Execução de uma linha de comando 
+          name: Publish CodeCov
+          command:
+            ./codecov -f "/root/project/results/coverage.opencover.xml" -t $codeCovToken
+      # Execução de uma linha de comando
       - run:
-          name: install newman
-          command: sudo npm install -g newman
-      # Execução de uma linha de comando 
-      - run:
-          name: docker compose
-          command: docker-compose up --build -d
-      # Execução de uma linha de comando           
-      - run:
-          name: Node version
-          command: nodejs --version   
-       # Execução de uma linha de comando          
-      - run:
-          name: Run Tests
-          command: newman run ImpostoRenda.postman_collection.json -n 20 -r cli,json --reporter-json-export ./result/result.json   
-      # Armazenamento do conteudo da pasta result
+          name: Generate Report
+          command:
+            ./reportgenerator "-reports:/root/project/results/coverage.opencover.xml" \
+                             "-targetdir:/root/project/results/report/" \
+                             "-reporttypes:Html" \
+                             "-sourcedirs:/root/project/results/"  
+     # Armazenamento do conteudo da pasta result
       - store_artifacts:
-          path: results/    
-# Definição dos trabalhos que serção executados
-workflows:
-  # Nome do trabalho que seá executado
-  build_and_test:
-    # definição das Ações que serão executadas
-    jobs:
-      - test 
-      - buildSemDockerFile:
-              requires:
-                    - test 
-      - buildComDockerFile
-      - testeIntegradoComDockerCompose
+           path: results/report/
+  # Execução de build 
+  buildComDockerFile:
+     # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
+     machine:
+       # Nome da maquina que será utilizada
+       image: circleci/classic:201808-01 
+     # Definição dos passos para a realização do build dentro da imagem    
+     steps:
+       # Clone do projeto 
+       - checkout
+       # Execução de uma linha de comando
+       - run:
+           name: docker build
+           command: docker build --build-arg sonarLogin=$sonarLogin --build-arg codecovToken=$codeCovToken  -t imp:v1 .
+  # Execução de build 
+  testeIntegradoComDockerCompose:
+     # Definição que será utilizada uma maquina padrão do circleci para realizar o build  
+     machine:
+       # Nome da maquina que será utilizada
+       image: 'ubuntu-1604:202007-01'
+     # Definição dos passos para a realização do build dentro da imagem 
+     steps:
+       # Clone do projeto 
+       - checkout
+       # Execução de uma linha de comando       
+       - run:
+           name: Linux version
+           command: cat /etc/*release
+       # Execução de uma linha de comando 
+       - run:
+           name: APT-GET Update e upgrade
+           command: sudo apt-get update && sudo apt-get upgrade -y  
+       # Execução de uma linha de comando 
+       - run:
+           name: Install curl 
+           command: sudo apt-get -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+       # Execução de uma linha de comando 
+       - run:
+           name: Donwload node
+           command: curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+       # Execução de uma linha de comando 
+       - run:
+           name: Install node
+           command: sudo apt-get install -y nodejs
+       # Execução de uma linha de comando 
+       - run:
+           name: Update Npm
+           command: sudo npm install npm -g
+       # Execução de uma linha de comando 
+       - run:
+           name: install newman
+           command: sudo npm install -g newman
+       # Execução de uma linha de comando 
+       - run:
+           name: docker compose
+           command: docker-compose up --build -d
+       # Execução de uma linha de comando           
+       - run:
+           name: Node version
+           command: nodejs --version   
+        # Execução de uma linha de comando          
+       - run:
+           name: Run Tests
+           command: newman run ImpostoRenda.postman_collection.json -n 20 -r cli,json --reporter-json-export ./result/result.json   
+       # Armazenamento do conteudo da pasta result
+       - store_artifacts:
+           path: results/    
+ # Definição dos trabalhos que serção executados
+ workflows:
+   # Nome do trabalho que seá executado
+   build_and_test:
+     # definição das Ações que serão executadas
+     jobs:
+       - test 
+       - buildSemDockerFile:
+               requires:
+                     - test 
+       - buildComDockerFile
+       - testeIntegradoComDockerCompose
